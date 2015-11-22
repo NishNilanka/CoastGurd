@@ -63,18 +63,17 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/LineraLayout1">
 
-        <ScrollView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/scrollView2" >
+            android:layout_height="match_parent">
 
             <ExpandableListView
                 android:id="@+id/list"
                 android:layout_height="539dp"
                 android:layout_width="match_parent"
                 android:groupIndicator="@null"
-                android:layout_marginTop="60dp"/>
-        </ScrollView>
-
+                android:layout_marginTop="60dp" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

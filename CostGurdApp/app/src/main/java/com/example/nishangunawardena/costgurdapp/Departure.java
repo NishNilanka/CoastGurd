@@ -42,7 +42,7 @@ public class Departure extends Activity implements View.OnClickListener{
         text.setOnItemSelectedListener(regNo);
 
         sendButton = (Button) findViewById(R.id.button);
-        remarks = (EditText) findViewById(R.id.editText2);
+        remarks = (EditText) findViewById(R.id.remarks);
 
         sendButton.setOnClickListener(this);
 

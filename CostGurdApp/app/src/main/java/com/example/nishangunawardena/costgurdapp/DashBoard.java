@@ -62,9 +62,8 @@ public class DashBoard extends AppCompatActivity {
 
     public void setGroupParents() {
         parentItems.add("Arrival");
-        parentItems.add("Core Java");
-        parentItems.add("Desktop Java");
-        parentItems.add("Enterprise Java");
+        parentItems.add("Departure");
+
     }
 
     public void setChildData() {
@@ -84,21 +83,6 @@ public class DashBoard extends AppCompatActivity {
         child.add("Crypto");
         childItems.add(child);
 
-        // Desktop Java
-        child = new ArrayList<String>();
-        child.add("Accessibility");
-        child.add("AWT");
-        child.add("ImageIO");
-        child.add("Print");
-        childItems.add(child);
-
-        // Enterprise Java
-        child = new ArrayList<String>();
-        child.add("EJB3");
-        child.add("GWT");
-        child.add("Hibernate");
-        child.add("JSP");
-        childItems.add(child);
     }
 
 }
