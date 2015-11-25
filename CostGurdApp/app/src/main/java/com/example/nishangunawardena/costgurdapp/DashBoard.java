@@ -2,6 +2,7 @@ package com.example.nishangunawardena.costgurdapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ public class DashBoard extends AppCompatActivity {
         setContentView(R.layout.activity_dash_board);
 
         ImageView departureImage = (ImageView)findViewById(R.id.departure);
+        ImageView arrivalImage = (ImageView)findViewById(R.id.arrival);
+        ImageView livemap = (ImageView)findViewById(R.id.liveMap);
         departureImage.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -39,6 +42,42 @@ public class DashBoard extends AppCompatActivity {
                         break;
                     }
 
+
+
+
+                }
+            }
+        });
+
+        arrivalImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.arrival: {
+                        /*ImageView view = (ImageView) v;
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();*/
+                        Intent intent;
+                        intent = new Intent(v.getContext(), Arrival.class);
+                        startActivity(intent);
+                        /*view.getDrawable().clearColorFilter();
+                        view.invalidate();*/
+                        break;
+                    }
+                }
+            }
+        });
+
+        livemap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.liveMap: {
+                        Intent intent;
+                        intent = getPackageManager().getLaunchIntentForPackage("com.package.Online Fishing Map");
+                        startActivity(intent);
+                        break;
+                    }
                 }
             }
         });
@@ -61,8 +100,8 @@ public class DashBoard extends AppCompatActivity {
     }
 
     public void setGroupParents() {
-        parentItems.add("Arrival");
         parentItems.add("Departure");
+        parentItems.add("Arrival");
 
     }
 
@@ -84,5 +123,7 @@ public class DashBoard extends AppCompatActivity {
         childItems.add(child);
 
     }
+
+
 
 }

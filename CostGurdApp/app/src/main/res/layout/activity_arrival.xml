@@ -73,7 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
-                        android:text="Departure Harbour"
+                        android:text="Arrival Harbour"
                         android:id="@+id/textView6"
                         android:textColor="#000000"
                         android:layout_alignParentTop="true"
@@ -83,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
-                        android:text="Departure Date"
+                        android:text="Arrival Date"
                         android:id="@+id/textView7"
                         android:textColor="#000000"
                         android:layout_below="@+id/textView6"
@@ -110,7 +110,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-----Departure Check List-----"
+                    android:text="-----Arrival Check List-----"
                     android:id="@+id/textView12"
                     android:layout_marginTop="30dp"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
@@ -266,3 +266,4 @@
     </RelativeLayout>
 
 </RelativeLayout>
+

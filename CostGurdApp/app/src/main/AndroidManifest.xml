@@ -22,10 +22,14 @@
         </activity>
         <activity android:name=".DashBoard" >
         </activity>
-        <activity android:name=".Departure"/>
-        <!--<activity android:name=".Arrival"/>
+        <activity android:name=".Departure" />
+        <!--
+        <activity android:name=".Arrival"/>
 
-        <activity android:name=".RecentBoatDetails"/>-->
+        <activity android:name=".RecentBoatDetails"/>
+        -->
+        <activity android:name=".Arrival" >
+        </activity>
     </application>
 
 </manifest>
