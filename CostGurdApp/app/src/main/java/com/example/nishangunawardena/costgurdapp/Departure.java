@@ -43,7 +43,8 @@ public class Departure extends Activity implements View.OnClickListener{
 
         sendButton = (Button) findViewById(R.id.button);
         remarks = (EditText) findViewById(R.id.remarks);
-
+        crew = (CheckBox) findViewById(R.id.crewCheck);
+        eqipment = (CheckBox) findViewById(R.id.equiCheck);
         sendButton.setOnClickListener(this);
 
     }
@@ -53,9 +54,25 @@ public class Departure extends Activity implements View.OnClickListener{
         switch  (v.getId())
         {
             case R.id.button:
-                boolean crewValue =  crew.isChecked();
-                boolean equipmentValue = eqipment.isChecked();
+                int crewValue = 0;
+                int equipmentValue = 0;
+                String imul = text.getText().toString();
+                if(crew.isChecked()) {
+                    crewValue = 1;
+                }
+                if (eqipment.isChecked()) {
+                    equipmentValue = 1;
+                }
                 String remarksValue = remarks.getText().toString();
+                Getdata gd = new Getdata();
+                try {
+                    String s = gd.execute("http://192.248.22.121/GPS_mobile/Nishan/SendDepartureData.php?q="+imul+"&voyageNo=1&crew="+crewValue+"&equip="+equipmentValue+"&remarks="+remarksValue).get();
+                    //System.out.print(s);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }

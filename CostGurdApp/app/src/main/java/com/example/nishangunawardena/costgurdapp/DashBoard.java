@@ -2,7 +2,6 @@ package com.example.nishangunawardena.costgurdapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -74,7 +73,7 @@ public class DashBoard extends AppCompatActivity {
                 switch (v.getId()) {
                     case R.id.liveMap: {
                         Intent intent;
-                        intent = getPackageManager().getLaunchIntentForPackage("com.package.Online Fishing Map");
+                        intent = getPackageManager().getLaunchIntentForPackage("com.example.dula.test1");
                         startActivity(intent);
                         break;
                     }
