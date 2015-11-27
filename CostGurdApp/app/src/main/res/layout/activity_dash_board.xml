@@ -61,19 +61,46 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/LineraLayout1">
+        android:layout_below="@+id/LineraLayout1"
+        android:weightSum="1">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:text="Boats to be deported"
+            android:id="@+id/toBeDeparture"
+            android:layout_marginTop="15dp"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Boats Within Reporting Range"
+            android:id="@+id/button2"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Arrived Boats"
+            android:id="@+id/arrived"
+            />
 
-            <ExpandableListView
-                android:id="@+id/list"
-                android:layout_height="539dp"
-                android:layout_width="match_parent"
-                android:groupIndicator="@null"
-                android:layout_marginTop="60dp" />
-        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FI Approved Boats"
+            android:id="@+id/FIapproved"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="QC Approved Boats"
+            android:id="@+id/QCapproved"
+            />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView" />
     </LinearLayout>
+
 </RelativeLayout>

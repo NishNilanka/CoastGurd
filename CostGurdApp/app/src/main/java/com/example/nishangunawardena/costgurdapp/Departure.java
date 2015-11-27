@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -25,6 +27,7 @@ public class Departure extends Activity implements View.OnClickListener{
     Button sendButton;
     EditText remarks;
     String regNumber;
+    String voyageNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,6 +36,7 @@ public class Departure extends Activity implements View.OnClickListener{
         setContentView(R.layout.departure);
         Getdata gd = new Getdata();
         gd.execute("http://192.248.22.121/GPS_mobile/Nishan/getlocal_reg_no.php");
+
         text = (AutoCompleteTextView) findViewById(R.id.autoRegNo);
         text.setThreshold(2);
         text.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, Getdata.RegNo));
@@ -40,7 +44,7 @@ public class Departure extends Activity implements View.OnClickListener{
         RegNoSelect regNo = new RegNoSelect();
         text.setOnItemClickListener(regNo);
         text.setOnItemSelectedListener(regNo);
-
+        text.setSelection(5);
         sendButton = (Button) findViewById(R.id.button);
         remarks = (EditText) findViewById(R.id.remarks);
         crew = (CheckBox) findViewById(R.id.crewCheck);
@@ -64,15 +68,20 @@ public class Departure extends Activity implements View.OnClickListener{
                     equipmentValue = 1;
                 }
                 String remarksValue = remarks.getText().toString();
-                Getdata gd = new Getdata();
-                try {
-                    String s = gd.execute("http://192.248.22.121/GPS_mobile/Nishan/SendDepartureData.php?q="+imul+"&voyageNo=1&crew="+crewValue+"&equip="+equipmentValue+"&remarks="+remarksValue).get();
-                    //System.out.print(s);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
+                SendDepartureData sendDepartureData = new SendDepartureData();
+
+                try{
+                    String safeUrl = "http://192.248.22.121/GPS_mobile/Nishan/SendDepartureData.php?q="+URLEncoder.encode(imul)+"&voyageNo="+URLEncoder.encode(voyageNo)+"&crew="+URLEncoder.encode(String.valueOf(crewValue))+"&equip="+URLEncoder.encode(String.valueOf(equipmentValue))+"&remarks="+URLEncoder.encode(remarksValue)+"";
+                    sendDepartureData.execute(safeUrl);
+                    Toast.makeText(getApplicationContext(), "Successfully Submitted", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                catch(Exception e) {
                     e.printStackTrace();
                 }
+
+                //System.out.print(s);
+
                 break;
         }
     }
@@ -101,6 +110,7 @@ public class Departure extends Activity implements View.OnClickListener{
             date.setText("");
             harbour.setText(array[1]);
             date.setText(array[0]);
+            voyageNo = array[2];
             //System.out.println("1423333 " + array[1]);
 
         }
@@ -126,6 +136,7 @@ public class Departure extends Activity implements View.OnClickListener{
             date.setText("");
             harbour.setText(array[1]);
             date.setText(array[0]);
+            voyageNo = array[2];
             //System.out.println("1423333 " + array[1]);
         }
 

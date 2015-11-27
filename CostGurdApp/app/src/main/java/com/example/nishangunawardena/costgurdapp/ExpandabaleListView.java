@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.view.View.OnClickListener;
 import android.widget.CheckedTextView;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by Nishan Gunawardena on 11/20/2015.
  */
-public class ExpandabaleListView extends BaseExpandableListAdapter {
+public class ExpandabaleListView extends BaseExpandableListAdapter implements ExpandableListView.OnChildClickListener {
     private Activity activity;
     private ArrayList<Object> childtems;
     private LayoutInflater inflater;
@@ -119,5 +120,10 @@ public class ExpandabaleListView extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        return false;
     }
 }
