@@ -62,6 +62,8 @@ public class GetHarbourAndDate extends AsyncTask<String,String,String> {
                 s += json.getString("name")+ " ";
                 s += json.getString("voyage_no");
 
+
+
             }
 
             //text.setText(s);

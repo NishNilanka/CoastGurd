@@ -57,9 +57,17 @@ public class getBoatDetails extends AsyncTask<String,String,String> {
             JSONArray jArray = new JSONArray(result);
             for(int i=0; i<jArray.length();i++){
                 JSONObject json = jArray.getJSONObject(i);
-                s += json.getString("departure_date") + " ";
-                s += json.getString("name")+ " ";
-                s += json.getString("voyage_no");
+                s += json.getString("voyage_no") + "@";
+                s += json.getString("local_reg_no") + "@";
+                s += json.getString("departure_date") + "@";
+                s += json.getString("departure_time") + "@";
+                s += json.getString("departure_port") + "@";
+                s += json.getString("arrival_date") + "@";
+                s += json.getString("arrival_time") + "@";
+                s += json.getString("arrival_port") + "@";
+                s += json.getString("voyage_status") + "@";
+                s += json.getString("name")+ "@";
+
             }
 
 
