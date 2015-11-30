@@ -99,18 +99,25 @@ public class DashBoard extends AppCompatActivity {
 
         // The desired columns to be bound
         String[] columns = new String[] {
-                BoatAdapter.KEY_CODE,
-                BoatAdapter.KEY_NAME,
-                BoatAdapter.KEY_CONTINENT,
-                BoatAdapter.KEY_REGION
+                BoatAdapter.KEY_IMUL ,
+                BoatAdapter.VOYAGE_NO ,
+                BoatAdapter.DEPARTURE_DATE,
+                BoatAdapter.DEPARTURE_TIME,
+                BoatAdapter.DEPARTURE_PORT  ,
+                BoatAdapter.ARRIVAL_DATE  ,
+                BoatAdapter.ARRIVAL_TIME ,
+                BoatAdapter.ARRIVAL_PORT ,
+                BoatAdapter.NAME ,
+
+
         };
 
         // the XML defined views which the data will be bound to
         int[] to = new int[] {
-                R.id.code,
-                R.id.name,
-                R.id.continent,
-                R.id.region,
+                R.id.local_reg_no,
+                R.id.voyage_no,
+                //R.id.continent,
+                //R.id.region,
         };
 
         // create the adapter using the cursor pointing to the desired data
@@ -136,7 +143,7 @@ public class DashBoard extends AppCompatActivity {
 
                 // Get the state's capital from this row in the database.
                 String countryCode =
-                        cursor.getString(cursor.getColumnIndexOrThrow("code"));
+                        cursor.getString(cursor.getColumnIndexOrThrow("local_reg_no"));
                 Toast.makeText(getApplicationContext(),
                         countryCode, Toast.LENGTH_SHORT).show();
 
