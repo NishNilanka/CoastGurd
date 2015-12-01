@@ -29,11 +29,6 @@
             android:label="Departure"
             android:screenOrientation="portrait" >
         </activity>
-        <!--
-        <activity android:name=".Arrival"/>
-
-        <activity android:name=".RecentBoatDetails"/>
-        -->
         <activity
             android:name=".Arrival"
             android:label="Arrival"
