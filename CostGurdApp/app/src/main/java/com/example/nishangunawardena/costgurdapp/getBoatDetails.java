@@ -8,8 +8,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -51,12 +49,12 @@ public class getBoatDetails extends AsyncTask<String,String,String> {
         catch(Exception e){
             Log.e("log_tag", "Error  converting result "+e.toString());
         }
-        
+        /*
         try {
 
             JSONArray jArray = new JSONArray(result);
             for(int i=0; i<jArray.length();i++){
-                JSONObject json = jArray.getJSONObject(i);
+                JSONObject json = jArray.getJSONObject(i);0
 
                 s += json.getString("local_reg_no") + "@";
                 s += json.getString("voyage_no") + "@";
@@ -76,8 +74,8 @@ public class getBoatDetails extends AsyncTask<String,String,String> {
         } catch (Exception e) {
             // TODO: handle exception
             Log.e("log_tag", "Error Parsing Data "+e.toString());
-        }
-        return s ;
+        }*/
+        return result ;
     }
 
 }

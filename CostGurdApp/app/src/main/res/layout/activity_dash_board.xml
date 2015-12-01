@@ -18,41 +18,55 @@
         android:layout_alignParentStart="true"
         android:gravity="center">
 
-        <ImageView
-            android:layout_marginTop="20dp"
-            android:id="@+id/departure"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:layout_gravity="center"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/departure"
-            android:clickable="true"/>
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="fill_horizontal"
+            android:columnCount="3"
+            android:orientation="horizontal"
+            tools:context=".GridXMLActivity"
+            android:gravity="center">
 
-        <ImageView
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:id="@+id/arrival"
-            android:background="@color/colorPrimaryDark"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:layout_gravity="center"
-            android:src="@drawable/arrival"
-            android:layout_centerHorizontal="true"
-            android:clickable="true"/>
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:id="@+id/departure"
+                android:layout_width="175dp"
+                android:layout_height="200dp"
 
-        <ImageView
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:id="@+id/liveMap"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:layout_gravity="center"
-            android:src="@drawable/map"
-            android:layout_centerHorizontal="true"
-            android:clickable="true"/>
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/departure"
+                android:clickable="true"/>
+
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/arrival"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="175dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:src="@drawable/arrival"
+                android:layout_centerHorizontal="true"
+                android:clickable="true"/>
+
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/liveMap"
+                android:layout_width="175dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:src="@drawable/map"
+                android:layout_centerHorizontal="true"
+                android:clickable="true"/>
+
+
+
+        </GridLayout>
+
 
 
     </LinearLayout>

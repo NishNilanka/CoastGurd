@@ -1,37 +1,55 @@
 package com.example.nishangunawardena.costgurdapp;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.FilterQueryProvider;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class DashBoard extends AppCompatActivity {
 
-    private BoatAdapter dbHelper;
-    private SimpleCursorAdapter dataAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
+        getBoatDetails boat = new getBoatDetails();
+        String s = null;
+        try {
 
-        dbHelper = new BoatAdapter(this);
-        dbHelper.open();
-        //Clean all data
-        dbHelper.deleteAllCountries();
-        //Add some data
-        dbHelper.insertSomeCountries();
+            s = boat.execute("http://192.248.22.121/GPS_mobile/Nishan/getAllBoats.php").get();
+            JSONArray jArray = new JSONArray(s);
+            int count = jArray.length();
+            String[] mobileArray = new String[count];
+            for(int i=0; i<count;i++) {
+                JSONObject json = jArray.getJSONObject(i);
+                System.out.println(json.getString("local_reg_no"));
+                mobileArray[i] = json.getString("local_reg_no");
 
-        //Generate ListView from SQLite Database
-        displayListView();
+            }
+            ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.boats, mobileArray);
+
+            ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setAdapter(adapter);
+            //System.out.print(s);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
 
         ImageView departureImage = (ImageView) findViewById(R.id.departure);
         ImageView arrivalImage = (ImageView) findViewById(R.id.arrival);
@@ -42,18 +60,13 @@ public class DashBoard extends AppCompatActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.departure: {
-                        /*ImageView view = (ImageView) v;
-                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        view.invalidate();*/
+
                         Intent intent;
                         intent = new Intent(v.getContext(), Departure.class);
                         startActivity(intent);
-                        /*view.getDrawable().clearColorFilter();
-                        view.invalidate();*/
+
                         break;
                     }
-
-
                 }
             }
         });
@@ -92,98 +105,6 @@ public class DashBoard extends AppCompatActivity {
         });
     }
 
-    private void displayListView() {
-
-
-        Cursor cursor = dbHelper.fetchAllCountries();
-
-        // The desired columns to be bound
-        String[] columns = new String[] {
-                BoatAdapter.KEY_IMUL ,
-                BoatAdapter.VOYAGE_NO ,
-                BoatAdapter.DEPARTURE_DATE,
-                BoatAdapter.DEPARTURE_TIME,
-                BoatAdapter.DEPARTURE_PORT  ,
-                BoatAdapter.ARRIVAL_DATE  ,
-                BoatAdapter.ARRIVAL_TIME ,
-                BoatAdapter.ARRIVAL_PORT ,
-                BoatAdapter.NAME ,
-
-
-        };
-
-        // the XML defined views which the data will be bound to
-        int[] to = new int[] {
-                R.id.local_reg_no,
-                R.id.voyage_no,
-                //R.id.continent,
-                //R.id.region,
-        };
-
-        // create the adapter using the cursor pointing to the desired data
-        //as well as the layout information
-        dataAdapter = new SimpleCursorAdapter(
-                this, R.layout.boats,
-                cursor,
-                columns,
-                to,
-                0);
-
-        ListView listView = (ListView) findViewById(R.id.listView);
-        // Assign adapter to ListView
-        listView.setAdapter(dataAdapter);
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> listView, View view,
-                                    int position, long id) {
-                // Get the cursor, positioned to the corresponding row in the result set
-                Cursor cursor = (Cursor) listView.getItemAtPosition(position);
-
-                // Get the state's capital from this row in the database.
-                String countryCode =
-                        cursor.getString(cursor.getColumnIndexOrThrow("local_reg_no"));
-                Toast.makeText(getApplicationContext(),
-                        countryCode, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        Button toBEDeported = (Button) findViewById(R.id.toBeDeparture);
-        toBEDeported.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.toBeDeparture: {
-                        dataAdapter.getFilter().filter("AND");
-                        break;
-                    }
-                }
-            }
-        });
-        /*EditText myFilter = (EditText) findViewById(R.id.myFilter);
-        myFilter.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-                dataAdapter.getFilter().filter(s.toString());
-            }
-        });*/
-
-        dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
-            public Cursor runQuery(CharSequence constraint) {
-                return dbHelper.fetchCountriesByName(constraint.toString());
-            }
-        });
-
-    }
 
 
 }
