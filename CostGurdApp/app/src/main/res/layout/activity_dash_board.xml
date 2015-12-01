@@ -88,7 +88,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Boats Within Reporting Range"
+            android:text="Boats Within Reporting Range - Arrival"
             android:id="@+id/button2"
             />
         <Button
@@ -101,13 +101,13 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="FI Approved Boats"
+            android:text="FI Approved Boats - Arrival"
             android:id="@+id/FIapproved"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="QC Approved Boats"
+            android:text="QC Approved Boats - Arrival"
             android:id="@+id/QCapproved"
             />
 

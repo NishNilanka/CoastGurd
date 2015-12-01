@@ -20,22 +20,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DashBoard"
-            android:screenOrientation="portrait">
+        <activity
+            android:name=".DashBoard"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name=".Departure"
+        <activity
+            android:name=".Departure"
             android:label="Departure"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait" >
         </activity>
         <!--
         <activity android:name=".Arrival"/>
 
         <activity android:name=".RecentBoatDetails"/>
         -->
-        <activity android:name=".Arrival"
+        <activity
+            android:name=".Arrival"
             android:label="Arrival"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

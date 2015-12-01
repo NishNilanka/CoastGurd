@@ -15,9 +15,6 @@ import android.widget.Toast;
 import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
-/**
- * Created by Nishan Gunawardena on 11/7/2015.
- */
 public class Departure extends Activity implements View.OnClickListener{
 
     AutoCompleteTextView text;
@@ -30,10 +27,9 @@ public class Departure extends Activity implements View.OnClickListener{
     String voyageNo;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.departure);
+        setContentView(R.layout.activity_departure);
         Getdata gd = new Getdata();
         gd.execute("http://192.248.22.121/GPS_mobile/Nishan/getlocal_reg_no.php");
 
@@ -50,7 +46,6 @@ public class Departure extends Activity implements View.OnClickListener{
         crew = (CheckBox) findViewById(R.id.crewCheck);
         eqipment = (CheckBox) findViewById(R.id.equiCheck);
         sendButton.setOnClickListener(this);
-
     }
 
     @Override
@@ -71,7 +66,7 @@ public class Departure extends Activity implements View.OnClickListener{
                 SendDepartureData sendDepartureData = new SendDepartureData();
 
                 try{
-                    String safeUrl = "http://192.248.22.121/GPS_mobile/Nishan/SendDepartureData.php?q="+URLEncoder.encode(imul)+"&voyageNo="+URLEncoder.encode(voyageNo)+"&crew="+URLEncoder.encode(String.valueOf(crewValue))+"&equip="+URLEncoder.encode(String.valueOf(equipmentValue))+"&remarks="+URLEncoder.encode(remarksValue)+"";
+                    String safeUrl = "http://192.248.22.121/GPS_mobile/Nishan/SendDepartureData.php?q="+ URLEncoder.encode(imul)+"&voyageNo="+URLEncoder.encode(voyageNo)+"&crew="+URLEncoder.encode(String.valueOf(crewValue))+"&equip="+URLEncoder.encode(String.valueOf(equipmentValue))+"&remarks="+URLEncoder.encode(remarksValue)+"";
                     sendDepartureData.execute(safeUrl);
                     Toast.makeText(getApplicationContext(), "Successfully Submitted", Toast.LENGTH_LONG).show();
                     finish();
