@@ -22,7 +22,7 @@
             android:layout_height="180dp"
             android:scaleType="centerCrop"
             android:layout_gravity="center"
-            android:src="@drawable/costgurd" />
+            android:src="@drawable/logo" />
 
         <EditText
             android:layout_marginTop="20dp"

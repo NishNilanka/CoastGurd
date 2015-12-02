@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 public class DashBoard extends AppCompatActivity {
 
-
+    TextView boatDetailsType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +26,19 @@ public class DashBoard extends AppCompatActivity {
         setContentView(R.layout.activity_dash_board);
         getBoatDetails boat = new getBoatDetails();
         String s = null;
+        boatDetailsType = (TextView) findViewById(R.id.boatText);
+        boatDetailsType.setText("All Boats");
         try {
 
             s = boat.execute("http://192.248.22.121/GPS_mobile/Nishan/getAllBoats.php").get();
             JSONArray jArray = new JSONArray(s);
+            System.out.println(s);
             int count = jArray.length();
             String[] mobileArray = new String[count];
             for(int i=0; i<count;i++) {
                 JSONObject json = jArray.getJSONObject(i);
                 System.out.println(json.getString("local_reg_no"));
-                mobileArray[i] = json.getString("local_reg_no");
+                mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
 
             }
             ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.boats, mobileArray);
@@ -54,6 +59,9 @@ public class DashBoard extends AppCompatActivity {
         ImageView departureImage = (ImageView) findViewById(R.id.departure);
         ImageView arrivalImage = (ImageView) findViewById(R.id.arrival);
         ImageView livemap = (ImageView) findViewById(R.id.liveMap);
+
+        Button  deported = (Button) findViewById(R.id.toBeDeparture);
+
         departureImage.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -100,6 +108,38 @@ public class DashBoard extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     }
+                }
+            }
+        });
+
+        deported.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String s = null;
+                getToBeDeportedBoats deportBoats =  new getToBeDeportedBoats();
+                try {
+
+                    s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getToBeDeportedBoats.php").get();
+                    JSONArray jArray = new JSONArray(s);
+                    int count = jArray.length();
+                    String[] mobileArray = new String[count];
+                    for(int i=0; i<count;i++) {
+                        JSONObject json = jArray.getJSONObject(i);
+                        mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
+
+                    }
+
+                    ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
+                    boatDetailsType.setText("Boats To be Deported");
+                    ListView listView = (ListView) findViewById(R.id.listView);
+                    listView.setAdapter(adapter);
+                    //System.out.print(s);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         });

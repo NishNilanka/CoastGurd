@@ -71,6 +71,48 @@
 
     </LinearLayout>
 
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <Button
+            android:layout_width="189dp"
+            android:layout_height="wrap_content"
+            android:text="Boats Within Reporting Range - Arrival"
+            android:id="@+id/button2"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="187dp"
+            android:layout_height="wrap_content"
+            android:text="Arrived Boats"
+            android:id="@+id/arrived"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="83dp"
+            android:text="Boats to be deported"
+            android:id="@+id/toBeDeparture"
+            android:layout_marginTop="15dp"
+            />
+
+        <Button
+            android:layout_width="189dp"
+            android:layout_height="wrap_content"
+            android:text="QC Approved Boats - Arrival"
+            android:id="@+id/QCapproved"
+            />
+
+        <Button
+            android:layout_width="189dp"
+            android:layout_height="wrap_content"
+            android:text="FI Approved Boats - Arrival"
+            android:id="@+id/FIapproved"
+            />
+    </GridLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -78,40 +120,20 @@
         android:layout_below="@+id/LineraLayout1"
         android:weightSum="1">
 
-        <Button
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Boats to be deported"
-            android:id="@+id/toBeDeparture"
-            android:layout_marginTop="15dp"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Boats Within Reporting Range - Arrival"
-            android:id="@+id/button2"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Arrived Boats"
-            android:id="@+id/arrived"
-            />
+            android:id="@+id/boatText"
+            android:textColor="#000000"
+            android:text=""
+            android:layout_alignTop="@+id/textView6"
+            android:layout_toRightOf="@+id/textView6"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="FI Approved Boats - Arrival"
-            android:id="@+id/FIapproved"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="QC Approved Boats - Arrival"
-            android:id="@+id/QCapproved"
-            />
 
-                <ListView
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/listView" />
