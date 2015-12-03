@@ -19,7 +19,7 @@ public class Departure extends Activity implements View.OnClickListener{
 
     AutoCompleteTextView text;
     TextView harbour;
-    TextView date;
+    TextView date, boatName;
     CheckBox crew, eqipment;
     Button sendButton;
     EditText remarks;
@@ -92,7 +92,7 @@ public class Departure extends Activity implements View.OnClickListener{
             String s = null;
             try {
                 s = GHD.execute("http://192.248.22.121/GPS_mobile/Nishan/getHarbourAndDate.php?q="+regNumber).get();
-                System.out.println("PHP array" + s);
+                //System.out.println("PHP array" + s);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -100,12 +100,17 @@ public class Departure extends Activity implements View.OnClickListener{
             }
             harbour = (TextView) findViewById(R.id.harbourText);
             date = (TextView) findViewById(R.id.Date);
-            array = s.split(" ");
+            boatName = (TextView) findViewById(R.id.boatTextfield);
+            array = s.split("@");
             harbour.setText("");
             date.setText("");
+            boatName.setText("");
             harbour.setText(array[1]);
             date.setText(array[0]);
+            //System.out.print("Boat = "+ array[3]);
+            boatName.setText(array[3]);
             voyageNo = array[2];
+
             //System.out.println("1423333 " + array[1]);
 
         }
@@ -129,8 +134,10 @@ public class Departure extends Activity implements View.OnClickListener{
             array = s.split(" ");
             harbour.setText("");
             date.setText("");
+            boatName.setText("");
             harbour.setText(array[1]);
             date.setText(array[0]);
+            boatName.setText(array[3]);
             voyageNo = array[2];
             //System.out.println("1423333 " + array[1]);
         }

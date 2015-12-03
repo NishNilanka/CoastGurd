@@ -26,6 +26,7 @@ public class DashBoard extends AppCompatActivity {
         setContentView(R.layout.activity_dash_board);
         getBoatDetails boat = new getBoatDetails();
         String s = null;
+
         boatDetailsType = (TextView) findViewById(R.id.boatText);
         boatDetailsType.setText("All Boats");
         try {

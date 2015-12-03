@@ -58,9 +58,10 @@ public class GetHarbourAndDate extends AsyncTask<String,String,String> {
             JSONArray jArray = new JSONArray(result);
             for(int i=0; i<jArray.length();i++){
                 JSONObject json = jArray.getJSONObject(i);
-                s += json.getString("departure_date") + " ";
-                s += json.getString("name")+ " ";
-                s += json.getString("voyage_no");
+                s += json.getString("departure_date") + "@";
+                s += json.getString("name")+ "@";
+                s += json.getString("voyage_no")+ "@";
+                s += json.getString("boat_Name");
 
 
 

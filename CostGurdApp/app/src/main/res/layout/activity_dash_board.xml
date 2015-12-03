@@ -94,26 +94,26 @@
 
             <Button
                 android:layout_width="175dp"
-                android:layout_height="83dp"
+                android:layout_height="125dp"
                 android:layout_gravity="fill_horizontal|center_vertical"
-                android:text="All Boats"
+                android:text="All Boats&#10;සියලු බොට්ටු"
                 android:id="@+id/allBoats"
 
                 />
 
             <Button
                 android:layout_width="175dp"
-                android:layout_height="83dp"
+                android:layout_height="125dp"
                 android:layout_gravity="fill_horizontal|center_vertical"
-                android:text="Boats to be deported"
+                android:text="Boats to be deported&#10;පිටත් වීමට නියමිත බොට්ටු"
                 android:id="@+id/toBeDeparture"
                 android:layout_marginLeft="10dp"
                 />
 
             <Button
                 android:layout_width="175dp"
-                android:layout_height="83dp"
-                android:text="Boats Within Reporting Range - Arrival"
+                android:layout_height="125dp"
+                android:text="Boats Within Reporting Range - Arrival&#10;වාර්තා පරාසය තුළ බෝට්ටු- පැමිණීම"
                 android:layout_marginLeft="10dp"
                 android:id="@+id/button2"
                 android:layout_gravity="center_vertical"
@@ -121,24 +121,24 @@
 
             <Button
                 android:layout_width="175dp"
-                android:layout_height="83dp"
-                android:text="Arrived Boats"
+                android:layout_height="150dp"
+                android:text="Arrived Boats&#10;පැමිණි බෝට්ටු"
                 android:id="@+id/arrived"
                 android:layout_gravity="center_vertical" />
 
             <Button
                 android:layout_width="175dp"
-                android:layout_height="83dp"
+                android:layout_height="150dp"
                 android:layout_marginLeft="10dp"
-                android:text="QC Approved Boats - Arrival"
+                android:text="QC Approved Boats - ArrivalQC&#10; අනුමත බෝට්ටු - පැමිණීම"
                 android:id="@+id/QCapproved"
                 android:layout_gravity="center_vertical" />
 
             <Button
                 android:layout_width="175dp"
-                android:layout_height="83dp"
+                android:layout_height="150dp"
                 android:layout_marginLeft="10dp"
-                android:text="FI Approved Boats - Arrival"
+                android:text="FI Approved Boats - Arrival&#10;FI අනුමත බෝට්ටු - පැමිණීම"
                 android:id="@+id/FIapproved"
                 android:layout_gravity="center_vertical" />
         </GridLayout>
@@ -151,13 +151,13 @@
             >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/boatText"
                 android:textColor="#000000"
+                android:gravity="center"
                 android:text=""
                 android:layout_marginTop="10dp"
-                android:="center"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse" />
 
 
