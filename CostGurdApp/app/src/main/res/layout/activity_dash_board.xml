@@ -115,7 +115,7 @@
                 android:layout_height="125dp"
                 android:text="Boats Within Reporting Range - Arrival&#10;වාර්තා පරාසය තුළ බෝට්ටු- පැමිණීම"
                 android:layout_marginLeft="10dp"
-                android:id="@+id/button2"
+                android:id="@+id/btnreportingRange"
                 android:layout_gravity="center_vertical"
                 />
 
@@ -130,16 +130,16 @@
                 android:layout_width="175dp"
                 android:layout_height="150dp"
                 android:layout_marginLeft="10dp"
-                android:text="QC Approved Boats - Arrival&#10;QC අනුමත බෝට්ටු - පැමිණීම"
-                android:id="@+id/QCapproved"
+                android:text="FI Approved Boats - Arrival&#10;FI අනුමත බෝට්ටු - පැමිණීම"
+                android:id="@+id/FIapproved"
                 android:layout_gravity="center_vertical" />
 
             <Button
                 android:layout_width="175dp"
                 android:layout_height="150dp"
                 android:layout_marginLeft="10dp"
-                android:text="FI Approved Boats - Arrival&#10;FI අනුමත බෝට්ටු - පැමිණීම"
-                android:id="@+id/FIapproved"
+                android:text="QC Approved Boats - Arrival&#10;QC අනුමත බෝට්ටු - පැමිණීම"
+                android:id="@+id/QCapproved"
                 android:layout_gravity="center_vertical" />
         </GridLayout>
 
