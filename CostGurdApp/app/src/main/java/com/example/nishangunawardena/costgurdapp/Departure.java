@@ -115,9 +115,6 @@ public class Departure extends Activity implements View.OnClickListener{
             boatName.setText("");
             harbour.setText(array[1]);
             date.setText(array[0]);
-            System.out.print("1 = " + array[0]);
-            System.out.print("2 = "+ array[1]);
-            System.out.print("1 = "+ array[3]);
             boatName.setText(array[2]);
             voyageNo = array[3];
 

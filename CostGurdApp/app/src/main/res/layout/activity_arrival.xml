@@ -194,7 +194,7 @@
                     <CheckBox
                         android:layout_width="557dp"
                         android:layout_height="wrap_content"
-                        android:text="IF SHARKS ARE AVAILABLE WHOLE SEARK TO BE ONBOARD&#10;මොරුන් සිටී නම් "
+                        android:text="IF SHARKS ARE AVAILABLE WHOLE SHARKS TO BE ONBOARD&#10;මොරුන් සිටී නම් "
                         android:id="@+id/checkshark"
                         android:textColor="#000000"
                         android:textSize="@dimen/abc_text_size_large_material"

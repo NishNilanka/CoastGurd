@@ -82,9 +82,6 @@ public class Arrival extends AppCompatActivity {
             boatName.setText("");
             harbour.setText(array[1]);
             date.setText(array[0]);
-            System.out.print("1 = " + array[0]);
-            System.out.print("2 = "+ array[1]);
-            System.out.print("1 = "+ array[3]);
             boatName.setText(array[2]);
             voyageNo = array[3];
 
@@ -106,16 +103,18 @@ public class Arrival extends AppCompatActivity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            harbour = (TextView) findViewById(R.id.harbourText);
-            date = (TextView) findViewById(R.id.Date);
-            array = s.split(" ");
+            harbour = (TextView) findViewById(R.id.arrharbourText);
+            date = (TextView) findViewById(R.id.arrdepDate);
+            boatName = (TextView) findViewById(R.id.arrboatTextfield);
+            array = s.split("@");
+            System.out.print(array);
             harbour.setText("");
             date.setText("");
             boatName.setText("");
             harbour.setText(array[1]);
             date.setText(array[0]);
-            boatName.setText(array[3]);
-            voyageNo = array[2];
+            boatName.setText(array[2]);
+            voyageNo = array[3];
         }
 
         @Override
