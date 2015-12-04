@@ -3,267 +3,244 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#a3c0ad">
+    android:background="#3f797d">
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="40dp">
+        android:layout_height="wrap_content"
+        android:id="@+id/basiclayout">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
 
-        <TextView
-            android:layout_width="123dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
+                android:text="Reg. No &#10;ලියාපදිංචි අංකය "
+                android:textSize="20dp"
+                android:id="@+id/textView3"
+                android:textColor="#000000"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"/>
+
+            <AutoCompleteTextView
+                android:inputType="number"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/arrivalRegNo"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/textView3"
+                android:layout_alignTop="@+id/textView3"
+                android:layout_alignBottom="@+id/textView3"
+                android:editable="false"
+                android:text="IMULA"
+                android:imeOptions="actionDone"
+                android:gravity="bottom"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
-            android:text="Reg. No"
-            android:textSize="20dp"
-            android:id="@+id/textView3"
-            android:textColor="#000000"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"/>
-
-        <AutoCompleteTextView
-            android:inputType="number"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/autoRegNo"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/textView3"
-            android:editable="false"
-            android:text="IMULA"
-            android:imeOptions="actionDone"/>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            >
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
+                android:text="Boat Name&#10;බෝට්ටු නම"
+                android:id="@+id/boatNameText"
+                android:textColor="#000000"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:id="@+id/arrboatTextfield"
+                android:textColor="#000000"
+                android:layout_alignTop="@+id/boatNameText"
+                android:layout_toRightOf="@+id/boatNameText"
+                android:layout_alignBottom="@+id/boatNameText"
+                android:layout_marginLeft="80dp"
+                android:gravity="center_vertical" />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
+                android:text="Departed Harbour&#10;පිටත්වු වරාය"
+                android:id="@+id/textView6"
+                android:textColor="#000000"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/boatNameText"
+                android:layout_alignStart="@+id/boatNameText"
+                android:layout_alignLeft="@+id/boatNameText"
+
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:id="@+id/arrharbourText"
+                android:textColor="#000000"
+                android:layout_alignTop="@+id/textView6"
+                android:layout_toRightOf="@+id/textView6"
+                android:layout_alignStart="@+id/arrboatTextfield"
+                android:layout_alignBottom="@+id/textView6"
+                android:layout_alignLeft = "@+id/arrboatTextfield"
+                android:gravity="center_vertical"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
+                android:text="Departure Date&#10;පිටත්වු දිනය"
+                android:id="@+id/textView7"
+                android:textColor="#000000"
+                android:layout_below="@+id/textView6"
+                android:layout_alignLeft="@+id/textView6"
+                android:layout_alignStart="@+id/textView6"
+                android:layout_marginTop="10dp"
+
+                android:layout_alignRight="@+id/textView6"
+                android:layout_alignEnd="@+id/textView6"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/arrdepDate"
+                android:editable="false"
+                android:textColor="#000000"
+                android:layout_alignTop="@+id/textView7"
+                android:layout_alignLeft="@+id/arrharbourText"
+                android:layout_alignStart="@+id/arrharbourText"
+                android:layout_alignBottom="@+id/textView7"
+                android:layout_toRightOf="@+id/textView7"
+                android:gravity="center_vertical"
+                />
+        </RelativeLayout>
 
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView"
-            android:layout_below="@+id/autoRegNo"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:fillViewport="false">
+            android:id="@+id/scrollView2" >
 
-            <LinearLayout
-                android:orientation="vertical"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp">
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/basiclayout">
 
-                <RelativeLayout
+
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/harbourText"
-                        android:textColor="#000000"
-                        android:layout_alignTop="@+id/textView6"
-                        android:layout_toRightOf="@+id/textView6"
-                        android:layout_marginLeft="80dp"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
-                        android:text="Arrival Harbour"
-                        android:id="@+id/textView6"
-                        android:textColor="#000000"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="20dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
-                        android:text="Arrival Date"
-                        android:id="@+id/textView7"
-                        android:textColor="#000000"
-                        android:layout_below="@+id/textView6"
-                        android:layout_alignLeft="@+id/textView6"
-                        android:layout_alignStart="@+id/textView6"
-                        android:layout_marginTop="10dp"
-                        android:layout_alignRight="@+id/textView6"
-                        android:layout_alignEnd="@+id/textView6" />
-
-                    <TextView
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/Date"
-                        android:editable="false"
-                        android:textColor="#000000"
-                        android:layout_alignTop="@+id/textView7"
-                        android:layout_alignLeft="@+id/harbourText"
-                        android:layout_alignStart="@+id/harbourText"
-                        android:layout_alignBottom="@+id/textView7"
-                        android:layout_toRightOf="@+id/textView7"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse" />
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-----Arrival Check List-----"
-                    android:id="@+id/textView12"
-                    android:layout_marginTop="30dp"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
-                    android:textColor="#000000" />
-
-                <CheckBox
-                    android:layout_width="557dp"
-                    android:layout_height="wrap_content"
-                    android:text="Crew Checked"
-                    android:id="@+id/checkBox"
-                    android:layout_marginTop="20dp"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/abc_text_size_large_material"
-                    android:checked="false"
-                    android:background="#82ba9e" />
-
-                <CheckBox
-                    android:layout_width="557dp"
-                    android:layout_height="wrap_content"
-                    android:text="Equipment Checked"
-                    android:id="@+id/checkBox2"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/abc_text_size_large_material"
-                    android:layout_below="@+id/textView3"
-                    android:layout_alignLeft="@+id/textView3"
-                    android:layout_alignStart="@+id/textView3"
-                    android:checked="false"
-                    android:background="#82ba9e" />
-
-                <CheckBox
-                    android:layout_width="557dp"
-                    android:layout_height="wrap_content"
-                    android:text="Fuel Checked"
-                    android:id="@+id/checkBox3"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/abc_text_size_large_material"
-                    android:layout_below="@+id/checkBox2"
-                    android:layout_alignLeft="@+id/checkBox2"
-                    android:layout_alignStart="@+id/checkBox2"
-                    android:checked="false"
-                    android:background="#82ba9e" />
-
-                <CheckBox
-                    android:layout_width="557dp"
-                    android:layout_height="wrap_content"
-                    android:text="Registration Book"
-                    android:id="@+id/checkBox4"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/abc_text_size_large_material"
-                    android:layout_below="@+id/checkBox3"
-                    android:layout_alignLeft="@+id/checkBox3"
-                    android:layout_alignStart="@+id/checkBox3"
-                    android:checked="false"
-                    android:background="#82ba9e" />
-
-                <CheckBox
-                    android:layout_width="557dp"
-                    android:layout_height="wrap_content"
-                    android:text="Local Operation License"
-                    android:id="@+id/checkBox5"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/abc_text_size_large_material"
-                    android:layout_below="@+id/checkBox4"
-                    android:layout_alignLeft="@+id/checkBox4"
-                    android:layout_alignStart="@+id/checkBox4"
-                    android:checked="false"
-                    android:background="#82ba9e" />
-
-                <CheckBox
-                    android:layout_width="557dp"
-                    android:layout_height="wrap_content"
-                    android:text="High Sea Operation License"
-                    android:id="@+id/checkBox6"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/abc_text_size_large_material"
-                    android:layout_below="@+id/checkBox5"
-                    android:layout_alignLeft="@+id/checkBox5"
-                    android:layout_alignStart="@+id/checkBox5"
-                    android:checked="false"
-                    android:background="#82ba9e" />
-
-                <CheckBox
-                    android:layout_width="557dp"
-                    android:layout_height="wrap_content"
-                    android:text="Radio Call sign"
-                    android:id="@+id/checkBox8"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/abc_text_size_large_material"
-                    android:checked="false"
-                    android:layout_alignTop="@+id/checkBox7"
-                    android:layout_alignLeft="@+id/checkBox7"
-                    android:layout_alignStart="@+id/checkBox7"
-                    android:background="#82ba9e" />
-
-                <CheckBox
-                    android:layout_width="557dp"
-                    android:layout_height="wrap_content"
-                    android:text="VMS"
-                    android:id="@+id/checkBox9"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/abc_text_size_large_material"
-                    android:checked="false"
-                    android:layout_below="@+id/checkBox8"
-                    android:layout_alignLeft="@+id/checkBox8"
-                    android:layout_alignStart="@+id/checkBox8"
-                    android:background="#82ba9e" />
-
-                <CheckBox
-                    android:layout_width="557dp"
-                    android:layout_height="wrap_content"
-                    android:text="Fishing Log Book"
-                    android:id="@+id/checkBox7"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/abc_text_size_large_material"
-                    android:checked="false"
-                    android:layout_alignBottom="@+id/relativeLayout"
-                    android:layout_alignLeft="@+id/textView3"
-                    android:layout_alignStart="@+id/textView3"
-                    android:background="#82ba9e" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Remarks"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="15dp"
-                    android:id="@+id/Remarks"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
-                    android:textColor="#000000" />
+                    android:background="#337b8e">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/remarks"
-                    android:layout_marginTop="10dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignLeft="@+id/textView3"
-                    android:layout_alignStart="@+id/textView3" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-----Departure Check List-----"
+                        android:id="@+id/textView12"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
+                        android:textColor="#000000" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Submit"
-                    android:id="@+id/button"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"/>
+                    <CheckBox
+                        android:layout_width="557dp"
+                        android:layout_height="wrap_content"
+                        android:text="COMPLETE LOG BOOK&#10;සම්පුර්ණ කළ ලොග් පොත"
+                        android:id="@+id/checkCompleteLogBook"
+                        android:layout_marginTop="20dp"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/abc_text_size_large_material"
+                        android:checked="false"
+                        android:background="#3c8da4" />
 
-            </LinearLayout>
+                    <CheckBox
+                        android:layout_width="557dp"
+                        android:layout_height="wrap_content"
+                        android:text="AVAILABILITY OF SEA&#10;??"
+                        android:id="@+id/checksea"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/abc_text_size_large_material"
+                        android:layout_below="@+id/textView3"
+                        android:layout_alignLeft="@+id/textView3"
+                        android:layout_alignStart="@+id/textView3"
+                        android:checked="false"
+                        android:background="#5fa0ad"
+                        android:layout_marginTop="15dp"/>
+
+
+
+                    <CheckBox
+                        android:layout_width="557dp"
+                        android:layout_height="wrap_content"
+                        android:text="IF SHARKS ARE AVAILABLE WHOLE SEARK TO BE ONBOARD&#10;මොරුන් සිටී නම් "
+                        android:id="@+id/checkshark"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/abc_text_size_large_material"
+                        android:layout_below="@+id/checkBox3"
+                        android:layout_alignLeft="@+id/checkBox3"
+                        android:layout_alignStart="@+id/checkBox3"
+                        android:checked="false"
+                        android:background="#5f95a1"
+                        android:layout_marginTop="15dp"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Special Remarks  විශේෂ සටහන්"
+                        android:layout_marginTop="15dp"
+                        android:id="@+id/Remarks"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
+                        android:textColor="#000000" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/arrivalRemarks"
+                        android:layout_marginTop="10dp"
+                        android:hint="Enter Remarks"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignLeft="@+id/textView3"
+                        android:layout_alignStart="@+id/textView3" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Submit"
+                        android:id="@+id/btnArribalSubmit"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"/>
+
+                </LinearLayout>
+
+
+
+
+            </RelativeLayout>
         </ScrollView>
 
-
-
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>
-
