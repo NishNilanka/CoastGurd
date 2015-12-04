@@ -130,7 +130,7 @@
                 android:layout_width="175dp"
                 android:layout_height="150dp"
                 android:layout_marginLeft="10dp"
-                android:text="QC Approved Boats - ArrivalQC&#10; අනුමත බෝට්ටු - පැමිණීම"
+                android:text="QC Approved Boats - Arrival&#10;QC අනුමත බෝට්ටු - පැමිණීම"
                 android:id="@+id/QCapproved"
                 android:layout_gravity="center_vertical" />
 

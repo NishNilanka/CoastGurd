@@ -16,10 +16,10 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="123dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
-                android:text="Reg. No "
+                android:text="Reg. No &#10;ලියාපදිංචි අංක "
                 android:textSize="20dp"
                 android:id="@+id/textView3"
                 android:textColor="#000000"
@@ -40,7 +40,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -50,7 +50,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
-                android:text="Boat Name"
+                android:text="Boat Name&#10;බෝට්ටු නම"
                 android:id="@+id/boatNameText"
                 android:textColor="#000000"
                 android:layout_alignParentTop="true"
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
-                android:text="Departure Harbour"
+                android:text="Departure Harbour&#10;පිටත්වෙන වරාය"
                 android:id="@+id/textView6"
                 android:textColor="#000000"
                 android:layout_marginTop="10dp"
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
-                android:text="Departure Date"
+                android:text="Departure Date&#10;පිටත්වෙන දිනය"
                 android:id="@+id/textView7"
                 android:textColor="#000000"
                 android:layout_below="@+id/textView6"
@@ -165,7 +165,7 @@
                 <CheckBox
                     android:layout_width="557dp"
                     android:layout_height="wrap_content"
-                    android:text="LOG BOOK"
+                    android:text="LOG BOOK&#10;ලොග් පොත"
                     android:id="@+id/crewCheck"
                     android:layout_marginTop="20dp"
                     android:textColor="#000000"
@@ -176,7 +176,7 @@
                 <CheckBox
                     android:layout_width="557dp"
                     android:layout_height="wrap_content"
-                    android:text="HIGH SEAS OPERATION LICENSE"
+                    android:text="HIGH SEAS OPERATION LICENSE&#10;මහ මුහුදේ මෙහෙයුම් බලපත්‍රය"
                     android:id="@+id/equiCheck"
                     android:textColor="#000000"
                     android:textSize="@dimen/abc_text_size_large_material"
@@ -190,7 +190,7 @@
                 <CheckBox
                     android:layout_width="557dp"
                     android:layout_height="wrap_content"
-                    android:text="BOAT CERTIFICATE(BLUE BOOK)"
+                    android:text="BOAT CERTIFICATE(BLUE BOOK)&#10;බෝට්ටු සහතිකය (නිල් පොත)"
                     android:id="@+id/fuelCheck"
                     android:textColor="#000000"
                     android:textSize="@dimen/abc_text_size_large_material"
@@ -204,7 +204,7 @@
                 <CheckBox
                     android:layout_width="557dp"
                     android:layout_height="wrap_content"
-                    android:text="AVAILABILITY SAFETY JACKETS"
+                    android:text="SAFETY JACKETS&#10;ආරක්ෂිත ඇඳුම් කට්ටල"
                     android:id="@+id/regBookCheck"
                     android:textColor="#000000"
                     android:textSize="@dimen/abc_text_size_large_material"
@@ -219,7 +219,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Special Remarks"
+                    android:text="Special Remarks  විශේෂ සටහන්"
                     android:layout_marginTop="15dp"
                     android:id="@+id/Remarks"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
