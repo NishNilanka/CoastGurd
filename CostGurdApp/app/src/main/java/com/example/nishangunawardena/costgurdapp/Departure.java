@@ -49,6 +49,13 @@ public class Departure extends Activity implements View.OnClickListener{
     }
 
     @Override
+    public void onBackPressed() {
+        Getdata.RegNo.clear();
+        finish();
+        return;
+    }
+
+    @Override
     public void onClick(View v) {
         switch  (v.getId())
         {
@@ -92,7 +99,7 @@ public class Departure extends Activity implements View.OnClickListener{
             String s = null;
             try {
                 s = GHD.execute("http://192.248.22.121/GPS_mobile/Nishan/getHarbourAndDate.php?q="+regNumber).get();
-                //System.out.println("PHP array" + s);
+                System.out.println("PHP array" + s);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -102,14 +109,17 @@ public class Departure extends Activity implements View.OnClickListener{
             date = (TextView) findViewById(R.id.Date);
             boatName = (TextView) findViewById(R.id.boatTextfield);
             array = s.split("@");
+            System.out.print(array);
             harbour.setText("");
             date.setText("");
             boatName.setText("");
             harbour.setText(array[1]);
             date.setText(array[0]);
-            //System.out.print("Boat = "+ array[3]);
-            boatName.setText(array[3]);
-            voyageNo = array[2];
+            System.out.print("1 = " + array[0]);
+            System.out.print("2 = "+ array[1]);
+            System.out.print("1 = "+ array[3]);
+            boatName.setText(array[2]);
+            voyageNo = array[3];
 
             //System.out.println("1423333 " + array[1]);
 
