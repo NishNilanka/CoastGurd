@@ -20,7 +20,7 @@ public class Departure extends Activity implements View.OnClickListener{
     AutoCompleteTextView text;
     TextView harbour;
     TextView date, boatName;
-    CheckBox crew, eqipment;
+    CheckBox imulCheck, logCheck, highSeaLicenseCheck, bluBookCheck, safetyJacketCheck;
     Button sendButton;
     EditText remarks;
     String regNumber;
@@ -41,10 +41,14 @@ public class Departure extends Activity implements View.OnClickListener{
         text.setOnItemClickListener(regNo);
         text.setOnItemSelectedListener(regNo);
         text.setSelection(5);
+
         sendButton = (Button) findViewById(R.id.button);
         remarks = (EditText) findViewById(R.id.remarks);
-        crew = (CheckBox) findViewById(R.id.crewCheck);
-        eqipment = (CheckBox) findViewById(R.id.equiCheck);
+        imulCheck = (CheckBox) findViewById(R.id.imulCheck);
+        logCheck = (CheckBox) findViewById(R.id.logCheck);
+        highSeaLicenseCheck = (CheckBox) findViewById(R.id.highSeaLicenseCheck);
+        bluBookCheck = (CheckBox) findViewById(R.id.blueBookCheck);
+        safetyJacketCheck = (CheckBox) findViewById(R.id.safetyjacketCheck);
         sendButton.setOnClickListener(this);
     }
 
@@ -55,28 +59,52 @@ public class Departure extends Activity implements View.OnClickListener{
         return;
     }
 
+
+
+
     @Override
     public void onClick(View v) {
         switch  (v.getId())
         {
             case R.id.button:
-                int crewValue = 0;
-                int equipmentValue = 0;
+                int imulChecking = 0;
+                int logBook = 0;
+                int highSea = 0;
+                int blueBook = 0;
+                int safetyJacket = 0;
                 String imul = text.getText().toString();
-                if(crew.isChecked()) {
-                    crewValue = 1;
+                if(imulCheck.isChecked()) {
+                    imulChecking = 1;
                 }
-                if (eqipment.isChecked()) {
-                    equipmentValue = 1;
+                if (logCheck.isChecked()) {
+                    logBook = 1;
+                }
+                if(highSeaLicenseCheck.isChecked()) {
+                    highSea = 1;
+                }
+                if (bluBookCheck.isChecked()) {
+                    blueBook = 1;
+                }
+                if (safetyJacketCheck.isChecked()) {
+                    safetyJacket = 1;
                 }
                 String remarksValue = remarks.getText().toString();
                 SendDepartureData sendDepartureData = new SendDepartureData();
 
                 try{
-                    String safeUrl = "http://192.248.22.121/GPS_mobile/Nishan/SendDepartureData.php?q="+ URLEncoder.encode(imul)+"&voyageNo="+URLEncoder.encode(voyageNo)+"&crew="+URLEncoder.encode(String.valueOf(crewValue))+"&equip="+URLEncoder.encode(String.valueOf(equipmentValue))+"&remarks="+URLEncoder.encode(remarksValue)+"";
+                    String safeUrl = "http://192.248.22.121/GPS_mobile/Nishan/SendDepartureData.php?" +
+                            "q="+URLEncoder.encode(imul)+"&voyageNo="+URLEncoder.encode(voyageNo)+
+                            "&imulCheck="+URLEncoder.encode(String.valueOf(imulChecking))+
+                            "&logBook="+URLEncoder.encode(String.valueOf(logBook))+
+                            "&highSea="+URLEncoder.encode(String.valueOf(highSea))+
+                            "&blueBook="+URLEncoder.encode(String.valueOf(blueBook))+
+                            "&safetyJackets="+URLEncoder.encode(String.valueOf(safetyJacket))+
+                            "&remarks="+URLEncoder.encode(remarksValue)+"";
                     sendDepartureData.execute(safeUrl);
                     Toast.makeText(getApplicationContext(), "Successfully Submitted", Toast.LENGTH_LONG).show();
+                    Getdata.RegNo.clear();
                     finish();
+
                 }
                 catch(Exception e) {
                     e.printStackTrace();

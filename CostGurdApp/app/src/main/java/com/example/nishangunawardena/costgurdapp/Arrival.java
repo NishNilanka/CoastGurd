@@ -10,15 +10,17 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
-public class Arrival extends AppCompatActivity {
+public class Arrival extends AppCompatActivity implements View.OnClickListener{
 
     AutoCompleteTextView text;
     TextView harbour;
     TextView date, boatName;
-    CheckBox complteLogBook, eqipment;
+    CheckBox complteLogBook, prohibitCheckBox, sharkCheckBox;
     Button sendButton;
     EditText remarks;
     String regNumber;
@@ -39,11 +41,59 @@ public class Arrival extends AppCompatActivity {
         text.setOnItemClickListener(regNo);
         text.setOnItemSelectedListener(regNo);
         text.setSelection(5);
+
         sendButton = (Button) findViewById(R.id.btnArribalSubmit);
         remarks = (EditText) findViewById(R.id.arrivalRemarks);
         complteLogBook = (CheckBox) findViewById(R.id.checkCompleteLogBook);
-        eqipment = (CheckBox) findViewById(R.id.equiCheck);
+        prohibitCheckBox = (CheckBox) findViewById(R.id.checksea);
+        sharkCheckBox = (CheckBox) findViewById(R.id.checkshark);
+        sendButton.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch  (v.getId())
+        {
+            case R.id.btnArribalSubmit:
+                int completeLogCheck = 0;
+                int prohibitCheck = 0;
+                int sharkCheck = 0;
+                String imulArrival = text.getText().toString();
+                if(complteLogBook.isChecked()) {
+                    completeLogCheck = 1;
+                }
+                if (prohibitCheckBox.isChecked()) {
+                    prohibitCheck = 1;
+                }
+                if(sharkCheckBox.isChecked()) {
+                    sharkCheck = 1;
+                }
+
+                String remarksValue = remarks.getText().toString();
+                SendDepartureData sendDepartureData = new SendDepartureData();
+
+                try{
+                    String safeUrl = "http://192.248.22.121/GPS_mobile/Nishan/SendArrivalData.php?" +
+                            "q="+ URLEncoder.encode(imulArrival)+"&voyageNo="+URLEncoder.encode(voyageNo)+
+                            "&log_sheets="+URLEncoder.encode(String.valueOf(completeLogCheck))+
+                            "&prohibited_species="+URLEncoder.encode(String.valueOf(prohibitCheck))+
+                            "&whole_shark="+URLEncoder.encode(String.valueOf(sharkCheck))+
+                            "&remarks="+URLEncoder.encode(remarksValue)+"";
+                    sendDepartureData.execute(safeUrl);
+                    Toast.makeText(getApplicationContext(), "Successfully Submitted", Toast.LENGTH_LONG).show();
+                    getArrivalIMUL.ArrivalRegNo.clear();
+                    finish();
+
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+                //System.out.print(s);
+
+                break;
+        }
     }
 
 

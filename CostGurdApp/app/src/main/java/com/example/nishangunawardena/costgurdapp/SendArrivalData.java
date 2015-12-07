@@ -14,9 +14,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * Created by Nishan Gunawardena on 11/26/2015.
+ * Created by Nishan Gunawardena on 12/7/2015.
  */
-public class SendDepartureData extends AsyncTask<String, String,String> {
+public class SendArrivalData extends AsyncTask<String, String,String> {
+
     String result = "";
     InputStream isr = null;
     String s = "";
@@ -53,5 +54,3 @@ public class SendDepartureData extends AsyncTask<String, String,String> {
 
     }
 }
-
-
