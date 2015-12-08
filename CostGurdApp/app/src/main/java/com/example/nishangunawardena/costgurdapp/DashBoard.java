@@ -1,6 +1,11 @@
 package com.example.nishangunawardena.costgurdapp;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -72,30 +77,79 @@ public class DashBoard extends AppCompatActivity {
 
             @Override
             public boolean onLongClick(View v) {
-                Intent intent;
-                intent = new Intent(v.getContext(), Departure.class);
-                startActivity(intent);
-                return false;
+
+                if(isConnectingToInternet()) {
+                    Intent intent;
+                    intent = new Intent(v.getContext(), Departure.class);
+                    startActivity(intent);
+                    return false;
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DashBoard.this);
+                    builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                    return false;
+                }
+
             }
         });
 
         arrivalImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Intent intent;
-                intent = new Intent(v.getContext(), Arrival.class);
-                startActivity(intent);
-                return false;
+                if(isConnectingToInternet()) {
+                    Intent intent;
+                    intent = new Intent(v.getContext(), Arrival.class);
+                    startActivity(intent);
+                    return false;
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DashBoard.this);
+                    builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                    return false;
+                }
+
             }
         });
 
         livemap.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Intent intent;
-                intent = getPackageManager().getLaunchIntentForPackage("com.example.dula.test1");
-                startActivity(intent);
-                return false;
+                if(isConnectingToInternet()) {
+                    Intent intent;
+                    intent = getPackageManager().getLaunchIntentForPackage("com.example.dula.test1");
+                    startActivity(intent);
+                    return false;
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DashBoard.this);
+                    builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                    return false;
+                }
+
             }
         });
 
@@ -292,6 +346,39 @@ public class DashBoard extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public boolean isConnectingToInternet(){
+        boolean status=false;
+        try{
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getNetworkInfo(0);
+            if (netInfo != null && netInfo.getState()==NetworkInfo.State.CONNECTED) {
+                status= true;
+            }else {
+                netInfo = cm.getNetworkInfo(1);
+                if(netInfo!=null && netInfo.getState()==NetworkInfo.State.CONNECTED)
+                    status= true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return status;
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        DashBoard.this.finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
 

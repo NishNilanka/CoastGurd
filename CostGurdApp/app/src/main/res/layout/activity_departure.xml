@@ -41,6 +41,7 @@
                 android:layout_alignBottom="@+id/textView3"
                 android:editable="false"
                 android:text="IMULA"
+                android:textCursorDrawable="@null"
                 android:imeOptions="actionDone"
                 android:gravity="bottom"/>
         </RelativeLayout>

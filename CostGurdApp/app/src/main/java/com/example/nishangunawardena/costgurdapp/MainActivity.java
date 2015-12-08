@@ -1,6 +1,11 @@
 package com.example.nishangunawardena.costgurdapp;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -22,14 +27,34 @@ public class MainActivity extends AppCompatActivity {
 
             b1.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(final View v) {
                     if(userName.getText().toString().equals("admin") &&
                             password.getText().toString().equals("admin")) {
                         Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
-                        Intent intent;
-                        intent = new Intent(v.getContext(), DashBoard.class);
-                        startActivity(intent);
-                        finish();
+                        if(isConnectingToInternet()) {
+                            Intent intent;
+                            intent = new Intent(v.getContext(), DashBoard.class);
+                            startActivity(intent);
+                            finish();
+
+                        }else{
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                                    .setCancelable(false)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent;
+                                            intent = new Intent(v.getContext(), DashBoard.class);
+                                            startActivity(intent);
+                                            finish();
+
+                                        }
+                                    });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }
+
 
                     }
                     else{
@@ -39,6 +64,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+    }
+
+    public boolean isConnectingToInternet(){
+        boolean status=false;
+        try{
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getNetworkInfo(0);
+            if (netInfo != null && netInfo.getState()==NetworkInfo.State.CONNECTED) {
+                status= true;
+            }else {
+                netInfo = cm.getNetworkInfo(1);
+                if(netInfo!=null && netInfo.getState()==NetworkInfo.State.CONNECTED)
+                    status= true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return status;
     }
 
 
