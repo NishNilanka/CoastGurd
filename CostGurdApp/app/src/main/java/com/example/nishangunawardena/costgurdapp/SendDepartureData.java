@@ -28,6 +28,7 @@ public class SendDepartureData extends AsyncTask<String, String,String> {
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
             isr = entity.getContent();
+
         }catch(Exception e){
             Log.e("log_tag", "Error in http connection " + e.toString());
             //text.setText("Couldnt connect to database");
@@ -49,7 +50,7 @@ public class SendDepartureData extends AsyncTask<String, String,String> {
             Log.e("log_tag", "Error  converting result "+e.toString());
         }
 
-        return s ;
+        return result ;
 
     }
 }

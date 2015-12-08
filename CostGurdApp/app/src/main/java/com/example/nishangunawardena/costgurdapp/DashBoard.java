@@ -68,53 +68,34 @@ public class DashBoard extends AppCompatActivity {
         Button QCApprovedBoat = (Button) findViewById(R.id.QCapproved);
         Button FIApproved = (Button) findViewById(R.id.FIapproved);
 
-        departureImage.setOnClickListener(new View.OnClickListener() {
+        departureImage.setOnLongClickListener(new View.OnLongClickListener() {
 
             @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.departure: {
-
-                        Intent intent;
-                        intent = new Intent(v.getContext(), Departure.class);
-                        startActivity(intent);
-
-                        break;
-                    }
-                }
+            public boolean onLongClick(View v) {
+                Intent intent;
+                intent = new Intent(v.getContext(), Departure.class);
+                startActivity(intent);
+                return false;
             }
         });
 
-        arrivalImage.setOnClickListener(new View.OnClickListener() {
+        arrivalImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.arrival: {
-                        /*ImageView view = (ImageView) v;
-                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        view.invalidate();*/
-                        Intent intent;
-                        intent = new Intent(v.getContext(), Arrival.class);
-                        startActivity(intent);
-                        /*view.getDrawable().clearColorFilter();
-                        view.invalidate();*/
-                        break;
-                    }
-                }
+            public boolean onLongClick(View v) {
+                Intent intent;
+                intent = new Intent(v.getContext(), Arrival.class);
+                startActivity(intent);
+                return false;
             }
         });
 
-        livemap.setOnClickListener(new View.OnClickListener() {
+        livemap.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.liveMap: {
-                        Intent intent;
-                        intent = getPackageManager().getLaunchIntentForPackage("com.example.dula.test1");
-                        startActivity(intent);
-                        break;
-                    }
-                }
+            public boolean onLongClick(View v) {
+                Intent intent;
+                intent = getPackageManager().getLaunchIntentForPackage("com.example.dula.test1");
+                startActivity(intent);
+                return false;
             }
         });
 

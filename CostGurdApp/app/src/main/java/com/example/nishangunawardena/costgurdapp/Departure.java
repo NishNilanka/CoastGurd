@@ -1,7 +1,7 @@
 package com.example.nishangunawardena.costgurdapp;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
-public class Departure extends Activity implements View.OnClickListener{
+public class Departure extends AppCompatActivity implements View.OnClickListener {
 
     AutoCompleteTextView text;
     TextView harbour;
@@ -52,6 +52,7 @@ public class Departure extends Activity implements View.OnClickListener{
         sendButton.setOnClickListener(this);
     }
 
+
     @Override
     public void onBackPressed() {
         Getdata.RegNo.clear();
@@ -59,49 +60,65 @@ public class Departure extends Activity implements View.OnClickListener{
         return;
     }
 
-
-
-
     @Override
     public void onClick(View v) {
+
         switch  (v.getId())
         {
             case R.id.button:
-                int imulChecking = 0;
-                int logBook = 0;
-                int highSea = 0;
-                int blueBook = 0;
-                int safetyJacket = 0;
+                String imulChecking = null;
+                String logBook = null;
+                String highSea = null;
+                String blueBook = null;
+                String safetyJacket = null;
                 String imul = text.getText().toString();
                 if(imulCheck.isChecked()) {
-                    imulChecking = 1;
+                    imulChecking = "Yes";
+                }
+                else if(!imulCheck.isChecked()) {
+                    imulChecking = "No";
                 }
                 if (logCheck.isChecked()) {
-                    logBook = 1;
+                    logBook = "Yes";
+                }
+                else if (!logCheck.isChecked()) {
+                    logBook = "No";
                 }
                 if(highSeaLicenseCheck.isChecked()) {
-                    highSea = 1;
+                    highSea = "Yes";
+                }
+                else if(!highSeaLicenseCheck.isChecked()) {
+                    highSea = "No";
                 }
                 if (bluBookCheck.isChecked()) {
-                    blueBook = 1;
+                    blueBook = "Yes";
+                }
+                else if (!bluBookCheck.isChecked()) {
+                    blueBook = "No";
                 }
                 if (safetyJacketCheck.isChecked()) {
-                    safetyJacket = 1;
+                    safetyJacket = "Yes";
+                }
+                else if (!safetyJacketCheck.isChecked()) {
+                    safetyJacket = "No";
                 }
                 String remarksValue = remarks.getText().toString();
                 SendDepartureData sendDepartureData = new SendDepartureData();
 
                 try{
                     String safeUrl = "http://192.248.22.121/GPS_mobile/Nishan/SendDepartureData.php?" +
-                            "q="+URLEncoder.encode(imul)+"&voyageNo="+URLEncoder.encode(voyageNo)+
-                            "&imulCheck="+URLEncoder.encode(String.valueOf(imulChecking))+
-                            "&logBook="+URLEncoder.encode(String.valueOf(logBook))+
-                            "&highSea="+URLEncoder.encode(String.valueOf(highSea))+
-                            "&blueBook="+URLEncoder.encode(String.valueOf(blueBook))+
-                            "&safetyJackets="+URLEncoder.encode(String.valueOf(safetyJacket))+
+                            "q="+ URLEncoder.encode(imul)+"&voyageNo="+URLEncoder.encode(voyageNo)+
+                            "&imulCheck="+URLEncoder.encode(imulChecking)+
+                            "&logBook="+URLEncoder.encode(logBook)+
+                            "&highSea="+URLEncoder.encode(highSea)+
+                            "&blueBook="+URLEncoder.encode(blueBook)+
+                            "&safetyJackets="+URLEncoder.encode(safetyJacket)+
                             "&remarks="+URLEncoder.encode(remarksValue)+"";
-                    sendDepartureData.execute(safeUrl);
-                    Toast.makeText(getApplicationContext(), "Successfully Submitted", Toast.LENGTH_LONG).show();
+                    String result = sendDepartureData.execute(safeUrl).get();
+                    if(result.length() > 0)
+                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getApplicationContext(), "Connection Error", Toast.LENGTH_LONG).show();
                     Getdata.RegNo.clear();
                     finish();
 
@@ -114,6 +131,7 @@ public class Departure extends Activity implements View.OnClickListener{
 
                 break;
         }
+
     }
 
     class RegNoSelect implements AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener
@@ -137,7 +155,6 @@ public class Departure extends Activity implements View.OnClickListener{
             date = (TextView) findViewById(R.id.Date);
             boatName = (TextView) findViewById(R.id.boatTextfield);
             array = s.split("@");
-            System.out.print(array);
             harbour.setText("");
             date.setText("");
             boatName.setText("");

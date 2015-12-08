@@ -56,32 +56,48 @@ public class Arrival extends AppCompatActivity implements View.OnClickListener{
         switch  (v.getId())
         {
             case R.id.btnArribalSubmit:
-                int completeLogCheck = 0;
-                int prohibitCheck = 0;
-                int sharkCheck = 0;
+                String completeLogCheck = null;
+                String prohibitCheck = null;
+                String sharkCheck = null;
                 String imulArrival = text.getText().toString();
                 if(complteLogBook.isChecked()) {
-                    completeLogCheck = 1;
+                    completeLogCheck = "Yes";
+                }
+                else if(!complteLogBook.isChecked())
+                {
+                    completeLogCheck = "No";
                 }
                 if (prohibitCheckBox.isChecked()) {
-                    prohibitCheck = 1;
+                    prohibitCheck = "Yes";
+                }
+                else if (!prohibitCheckBox.isChecked()) {
+                    prohibitCheck = "NO";
                 }
                 if(sharkCheckBox.isChecked()) {
-                    sharkCheck = 1;
+                    sharkCheck = "yes";
+                }
+                else if(!sharkCheckBox.isChecked()) {
+                    sharkCheck = "No";
                 }
 
                 String remarksValue = remarks.getText().toString();
-                SendDepartureData sendDepartureData = new SendDepartureData();
+                SendArrivalData sendArrivalData = new SendArrivalData();
+
 
                 try{
                     String safeUrl = "http://192.248.22.121/GPS_mobile/Nishan/SendArrivalData.php?" +
                             "q="+ URLEncoder.encode(imulArrival)+"&voyageNo="+URLEncoder.encode(voyageNo)+
-                            "&log_sheets="+URLEncoder.encode(String.valueOf(completeLogCheck))+
-                            "&prohibited_species="+URLEncoder.encode(String.valueOf(prohibitCheck))+
-                            "&whole_shark="+URLEncoder.encode(String.valueOf(sharkCheck))+
+                            "&log_sheets="+URLEncoder.encode(completeLogCheck)+
+                            "&prohibited_species="+URLEncoder.encode(prohibitCheck)+
+                            "&whole_shark="+URLEncoder.encode(sharkCheck)+
                             "&remarks="+URLEncoder.encode(remarksValue)+"";
-                    sendDepartureData.execute(safeUrl);
-                    Toast.makeText(getApplicationContext(), "Successfully Submitted", Toast.LENGTH_LONG).show();
+
+
+                    String result = sendArrivalData.execute(safeUrl).get();
+                    if(result.length() > 0)
+                        Toast.makeText(getApplicationContext(), result , Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getApplicationContext(), "Connection Error" , Toast.LENGTH_LONG).show();
                     getArrivalIMUL.ArrivalRegNo.clear();
                     finish();
 
@@ -99,7 +115,7 @@ public class Arrival extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onBackPressed() {
-        Getdata.RegNo.clear();
+        getArrivalIMUL.ArrivalRegNo.clear();
         finish();
         return;
     }
@@ -126,7 +142,6 @@ public class Arrival extends AppCompatActivity implements View.OnClickListener{
             date = (TextView) findViewById(R.id.arrdepDate);
             boatName = (TextView) findViewById(R.id.arrboatTextfield);
             array = s.split("@");
-            System.out.print(array);
             harbour.setText("");
             date.setText("");
             boatName.setText("");

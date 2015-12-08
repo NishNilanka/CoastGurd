@@ -167,7 +167,7 @@
                     <CheckBox
                         android:layout_width="557dp"
                         android:layout_height="wrap_content"
-                        android:text="COMPLETE LOG BOOK&#10;සම්පුර්ණ කළ ලොග් පොත"
+                        android:text="Complete log book&#10;සම්පුර්ණ කළ ලොග් පොත"
                         android:id="@+id/checkCompleteLogBook"
                         android:layout_marginTop="20dp"
                         android:textColor="#000000"
@@ -178,7 +178,7 @@
                     <CheckBox
                         android:layout_width="557dp"
                         android:layout_height="wrap_content"
-                        android:text="AVAILABILITY OF SEA MAMMALS, TURTIES, SEA BIRDS, THRESHER SHARK &#10;මුහුදෙන් ලබා ගත හැකි ක්ෂීරපායින්, කැස්බෑවන්, මුහුදු පක්ෂීන්, මොරුන් සිටී"
+                        android:text="Availability of sea mammals, turties, sea birds, thresher shark&#10;මුහුදෙන් ලබා ගත හැකි ක්ෂීරපායින්, කැස්බෑවන්, මුහුදු පක්ෂීන්, මොරුන් සිටී"
                         android:id="@+id/checksea"
                         android:textColor="#000000"
                         android:textSize="@dimen/abc_text_size_large_material"
@@ -194,7 +194,7 @@
                     <CheckBox
                         android:layout_width="557dp"
                         android:layout_height="wrap_content"
-                        android:text="IF SHARKS ARE AVAILABLE WHOLE SHARKS TO BE ONBOARD&#10;මොරුන් සිටී නම් සම්පුර්ණ මොරුන් සිටී"
+                        android:text="If sharks are available whole sharks to be onboard&#10;මොරුන් සිටී නම් සම්පුර්ණ මොරුන් සිටී"
                         android:id="@+id/checkshark"
                         android:textColor="#000000"
                         android:textSize="@dimen/abc_text_size_large_material"
