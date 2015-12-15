@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">Coast Guard Application</string>
+    <array name="ComboBoxValues">
+        <item>KLT</item>
+        <item>TLE</item>
+        <item>CHW</item>
+        <item>CBO</item>
+        <item>MTR</item>
+        <item>GLE</item>
+        <item>TCO</item>
+        <item>PTM</item>
+        <item>NBO</item>
+        <item>MTA</item>
+    </array>
 
 </resources>

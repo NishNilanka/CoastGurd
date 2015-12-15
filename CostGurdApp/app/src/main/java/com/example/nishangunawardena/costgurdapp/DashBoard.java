@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 public class DashBoard extends AppCompatActivity {
 
     TextView boatDetailsType;
+    static int clickedButton= 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public class DashBoard extends AppCompatActivity {
 
             ListView listView = (ListView) findViewById(R.id.listView);
             listView.setAdapter(adapter);
+
             //System.out.print(s);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -62,16 +63,17 @@ public class DashBoard extends AppCompatActivity {
 
 
 
-        ImageView departureImage = (ImageView) findViewById(R.id.departure);
-        ImageView arrivalImage = (ImageView) findViewById(R.id.arrival);
-        ImageView livemap = (ImageView) findViewById(R.id.liveMap);
+        ImageView departureImage = (ImageView) findViewById(R.id.btnDeparture);
+        ImageView arrivalImage = (ImageView) findViewById(R.id.btnArrival);
+        ImageView livemap = (ImageView) findViewById(R.id.btnMap);
 
-        Button  deported = (Button) findViewById(R.id.toBeDeparture);
-        Button allBoats = (Button) findViewById(R.id.allBoats);
-        Button reportingRange = (Button) findViewById(R.id.btnreportingRange);
-        Button arrivedBoat = (Button) findViewById(R.id.arrived);
-        Button QCApprovedBoat = (Button) findViewById(R.id.QCapproved);
-        Button FIApproved = (Button) findViewById(R.id.FIapproved);
+
+        final ImageView Leaving = (ImageView) findViewById(R.id.btnLeving);
+        final ImageView allBoats = (ImageView) findViewById(R.id.btnAllBoats);
+        final ImageView arriving = (ImageView) findViewById(R.id.btnArriving);
+        final ImageView arrivedBoat = (ImageView) findViewById(R.id.btnArrived);
+        final ImageView QCApprovedBoat = (ImageView) findViewById(R.id.btnQCApproved);
+        final ImageView FIApproved = (ImageView) findViewById(R.id.btnFIapproaval);
 
         departureImage.setOnLongClickListener(new View.OnLongClickListener() {
 
@@ -153,11 +155,23 @@ public class DashBoard extends AppCompatActivity {
             }
         });
 
-        deported.setOnClickListener(new View.OnClickListener() {
+        Leaving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String s = null;
                 getBoats deportBoats =  new getBoats();
+                if(clickedButton == 0)
+                    allBoats.setImageResource(R.drawable.allboats);
+                else if(clickedButton == 2)
+                    arriving.setImageResource(R.drawable.arrivingboats);
+                else if(clickedButton == 3)
+                    arrivedBoat.setImageResource(R.drawable.arrivedboats);
+                else if(clickedButton == 4)
+                    FIApproved.setImageResource(R.drawable.fiapprovedboats);
+                else if(clickedButton == 5)
+                    QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
+                clickedButton= 1;
+                Leaving.setImageResource(R.drawable.leavingoatsp);
                 try {
 
                     s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getToBeDeportedBoats.php").get();
@@ -171,7 +185,7 @@ public class DashBoard extends AppCompatActivity {
                     }
 
                     ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
-                    boatDetailsType.setText("Boats To be Deported");
+                    boatDetailsType.setText("Leaving Boats");
                     ListView listView = (ListView) findViewById(R.id.listView);
                     listView.setAdapter(adapter);
                     //System.out.print(s);
@@ -190,6 +204,18 @@ public class DashBoard extends AppCompatActivity {
             public void onClick(View v) {
                 String s = null;
                 getBoats deportBoats =  new getBoats();
+                allBoats.setImageResource(R.drawable.allboatsp);
+                if(clickedButton == 1)
+                    Leaving.setImageResource(R.drawable.leavingboats);
+                else if(clickedButton == 2)
+                    arriving.setImageResource(R.drawable.arrivingboats);
+                else if(clickedButton == 3)
+                    arrivedBoat.setImageResource(R.drawable.arrivedboats);
+                else if(clickedButton == 4)
+                    FIApproved.setImageResource(R.drawable.fiapprovedboats);
+                else if(clickedButton == 5)
+                    QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
+                    clickedButton= 0;
                 try {
 
                     s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getAllBoats.php").get();
@@ -217,11 +243,23 @@ public class DashBoard extends AppCompatActivity {
             }
         });
 
-        reportingRange.setOnClickListener(new View.OnClickListener() {
+        arriving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String s = null;
                 getBoats deportBoats =  new getBoats();
+                if(clickedButton == 0)
+                    allBoats.setImageResource(R.drawable.allboats);
+                else if(clickedButton == 1)
+                    Leaving.setImageResource(R.drawable.leavingboats);
+                else if(clickedButton == 3)
+                    arrivedBoat.setImageResource(R.drawable.arrivedboats);
+                else if(clickedButton == 4)
+                    FIApproved.setImageResource(R.drawable.fiapprovedboats);
+                else if(clickedButton == 5)
+                    QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
+                arriving.setImageResource(R.drawable.arrivingboatsp);
+                clickedButton= 2;
                 try {
 
                     s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getReportingRangeBoats.php").get();
@@ -235,7 +273,7 @@ public class DashBoard extends AppCompatActivity {
                     }
 
                     ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
-                    boatDetailsType.setText("Boats Within Reporting Range");
+                    boatDetailsType.setText("Arriving Boats");
                     ListView listView = (ListView) findViewById(R.id.listView);
                     listView.setAdapter(adapter);
                     //System.out.print(s);
@@ -254,6 +292,18 @@ public class DashBoard extends AppCompatActivity {
             public void onClick(View v) {
                 String s = null;
                 getBoats deportBoats =  new getBoats();
+                if(clickedButton == 0)
+                    allBoats.setImageResource(R.drawable.allboats);
+                else if(clickedButton == 1)
+                    Leaving.setImageResource(R.drawable.leavingboats);
+                else if(clickedButton == 2)
+                    arriving.setImageResource(R.drawable.arrivingboats);
+                else if(clickedButton == 4)
+                    FIApproved.setImageResource(R.drawable.fiapprovedboats);
+                else if(clickedButton == 5)
+                    QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
+                arrivedBoat.setImageResource(R.drawable.arrivedboatsp);
+                clickedButton= 3;
                 try {
 
                     s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getArrivedBoats.php").get();
@@ -288,6 +338,18 @@ public class DashBoard extends AppCompatActivity {
             public void onClick(View v) {
                 String s = null;
                 getBoats deportBoats =  new getBoats();
+                if(clickedButton == 0)
+                    allBoats.setImageResource(R.drawable.allboats);
+                else if(clickedButton == 1)
+                    Leaving.setImageResource(R.drawable.leavingboats);
+                else if(clickedButton == 3)
+                    arrivedBoat.setImageResource(R.drawable.arrivedboats);
+                else if(clickedButton == 4)
+                    FIApproved.setImageResource(R.drawable.fiapprovedboats);
+                else if(clickedButton == 2)
+                    arriving.setImageResource(R.drawable.arrivingboats);
+                QCApprovedBoat.setImageResource(R.drawable.qcapprovedboatsp);
+                clickedButton= 5;
                 try {
 
                     s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getQCApprovedBoats.php").get();
@@ -320,6 +382,18 @@ public class DashBoard extends AppCompatActivity {
             public void onClick(View v) {
                 String s = null;
                 getBoats deportBoats =  new getBoats();
+                if(clickedButton == 0)
+                    allBoats.setImageResource(R.drawable.allboats);
+                else if(clickedButton == 1)
+                    Leaving.setImageResource(R.drawable.leavingboats);
+                else if(clickedButton == 3)
+                    arrivedBoat.setImageResource(R.drawable.arrivedboats);
+                else if(clickedButton == 2)
+                    arriving.setImageResource(R.drawable.arrivingboats);
+                else if(clickedButton == 5)
+                    QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
+                FIApproved.setImageResource(R.drawable.fiapprovedboatsp);
+                clickedButton= 4;
                 try {
 
                     s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getFIApprovedBoats.php").get();

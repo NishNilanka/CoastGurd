@@ -9,164 +9,206 @@
     android:background="#144d52">
 
     <LinearLayout
-        android:id = "@+id/LineraLayout1"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:weightSum="3"
+        android:id="@+id/layoutFirst"
         android:gravity="center">
 
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="fill_horizontal"
-            android:columnCount="3"
-            android:orientation="horizontal"
-            tools:context=".GridXMLActivity"
-            android:gravity="center">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:id="@+id/linearLayout"
+        android:layout_weight="1">
 
-            <ImageView
-                android:layout_marginTop="20dp"
-                android:id="@+id/departure"
-                android:layout_width="175dp"
-                android:layout_height="200dp"
+        <ImageButton
+            android:layout_width="300dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/btnDeparture"
+            android:src="@drawable/departure"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:layout_weight="1"
+            android:background="#197965"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:maxHeight="263dp" />
 
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:src="@drawable/departure"
-                android:clickable="true"/>
+        <ImageButton
+            android:layout_width="300dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/btnArrival"
+            android:src="@drawable/arrival"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="#197965"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:maxHeight="263dp" />
 
-            <ImageView
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:id="@+id/arrival"
-                android:background="@color/colorPrimaryDark"
-                android:layout_width="175dp"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center"
-                android:src="@drawable/arrival"
-                android:layout_centerHorizontal="true"
-                android:clickable="true"/>
+        <ImageButton
+            android:layout_width="300dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/btnMap"
+            android:src="@drawable/map"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:background="#197965"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:maxHeight="263dp" />
 
-            <ImageView
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:id="@+id/liveMap"
-                android:layout_width="175dp"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center"
-                android:src="@drawable/map"
-                android:layout_centerHorizontal="true"
-                android:clickable="true"/>
-
-        </GridLayout>
     </LinearLayout>
 
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:id="@+id/linearLayout1"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/btnAllBoats"
+                android:src="@drawable/allboatsp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:cropToPadding="false"
+                android:layout_weight="1"
+                android:background="#197965"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:maxHeight="263dp" />
+
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/btnLeving"
+                android:src="@drawable/leavingboats"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:background="#197965"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:maxHeight="263dp" />
+
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/btnArriving"
+                android:src="@drawable/arrivingboats"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:background="#197965"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:maxHeight="263dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:id="@+id/linearLayout11"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/btnArrived"
+                android:src="@drawable/arrivedboats"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:cropToPadding="false"
+                android:layout_weight="1"
+                android:background="#197965"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:maxHeight="263dp" />
+
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/btnFIapproaval"
+                android:src="@drawable/fiapprovedboats"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:background="#197965"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:maxHeight="263dp" />
+
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/btnQCApproved"
+                android:src="@drawable/qcapprovedboats"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:background="#197965"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:maxHeight="263dp" />
+
+        </LinearLayout>
+       </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/LineraLayout1"
-        android:layout_marginTop="10dp"
-        android:background="#144e41">
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_below="@+id/layoutFirst"
+        android:gravity="center">
 
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:columnCount="3"
-            android:rowCount="2"
-            android:id="@+id/boatGrid"
-            android:layout_below="@+id/LineraLayout1"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:id="@+id/linearLayout3"
+        android:layout_weight="1">
 
-            <Button
-                android:layout_width="175dp"
-                android:layout_height="125dp"
-                android:layout_gravity="fill_horizontal|center_vertical"
-                android:text="All Boats&#10;සියලු බොට්ටු"
-                android:id="@+id/allBoats"
-                android:textAllCaps="false"
-
-                />
-
-            <Button
-                android:layout_width="175dp"
-                android:layout_height="125dp"
-                android:layout_gravity="fill_horizontal|center_vertical"
-                android:text="Boats to be deported&#10;පිටත් වීමට නියමිත බොට්ටු"
-                android:id="@+id/toBeDeparture"
-                android:layout_marginLeft="10dp"
-                android:textAllCaps="false"
-                />
-
-            <Button
-                android:layout_width="175dp"
-                android:layout_height="125dp"
-                android:text="Boats Within Reporting Range - Arrival&#10;වාර්තා පරාසය තුළ බෝට්ටු- පැමිණීම"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/btnreportingRange"
-                android:layout_gravity="center_vertical"
-                android:textAllCaps="false"
-                />
-
-            <Button
-                android:layout_width="175dp"
-                android:layout_height="150dp"
-                android:text="Arrived Boats&#10;පැමිණි බෝට්ටු"
-                android:id="@+id/arrived"
-                android:layout_gravity="center_vertical"
-                android:textAllCaps="false"/>
-
-            <Button
-                android:layout_width="175dp"
-                android:layout_height="150dp"
-                android:layout_marginLeft="10dp"
-                android:text="FI Approved Boats - Arrival&#10;FI අනුමත බෝට්ටු - පැමිණීම"
-                android:id="@+id/FIapproved"
-                android:layout_gravity="center_vertical"
-                android:textAllCaps="false"/>
-
-            <Button
-                android:layout_width="175dp"
-                android:layout_height="150dp"
-                android:layout_marginLeft="10dp"
-                android:text="QC Approved Boats - Arrival&#10;QC අනුමත බෝට්ටු - පැමිණීම"
-                android:id="@+id/QCapproved"
-                android:layout_gravity="center_vertical"
-                android:textAllCaps="false"/>
-        </GridLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/boatGrid"
-            >
+            android:layout_height="60dp"
+            android:id="@+id/boatText"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:text=""
+            android:layout_weight="1"
+            android:layout_marginTop="15dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/boatText"
-                android:textColor="#000000"
-                android:gravity="center"
-                android:text=""
-                android:layout_marginTop="10dp"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse" />
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/boatText"
+            android:layout_weight="1"
+            android:id="@+id/listView" />
+    </LinearLayout>
 
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/listView" />
-        </LinearLayout>
 
     </LinearLayout>
 

@@ -9,6 +9,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,17 +31,32 @@ public class Departure extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_departure);
-        Getdata gd = new Getdata();
-        gd.execute("http://192.248.22.121/GPS_mobile/Nishan/getlocal_reg_no.php");
+        final Getdata gd = new Getdata();
 
-        text = (AutoCompleteTextView) findViewById(R.id.autoRegNo);
-        text.setThreshold(2);
+        Spinner spinner=(Spinner)findViewById(R.id.spinner);
+        final String areaCode = spinner.getSelectedItem().toString();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                              @Override
+                                              public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                  gd.execute("http://192.248.22.121/GPS_mobile/Nishan/getlocal_reg_no.php?code=areaCode");
+
+                                              }
+
+                                              @Override
+                                              public void onNothingSelected(AdapterView<?> parent) {
+
+                                              }
+
+                                          });
+
+            text = (AutoCompleteTextView) findViewById(R.id.autoRegNo);
+        text.setThreshold(1);
         text.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, Getdata.RegNo));
 
         RegNoSelect regNo = new RegNoSelect();
         text.setOnItemClickListener(regNo);
         text.setOnItemSelectedListener(regNo);
-        text.setSelection(5);
+        text.setSelection(0);
 
         sendButton = (Button) findViewById(R.id.button);
         remarks = (EditText) findViewById(R.id.remarks);
