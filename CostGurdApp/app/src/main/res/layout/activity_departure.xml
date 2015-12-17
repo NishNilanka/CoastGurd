@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/autoRegNo"
                 android:layout_marginLeft="10dp"
+                android:hint="Enter IMULA No"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/spinner"
                 android:layout_alignTop="@+id/spinner"
@@ -185,7 +186,7 @@
                         android:textColor="#000000" />
                     <CheckBox
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:text="Marking of the reg. No. Of the boat&#10;ඔරුවේ ලියාපදිංචි අංකය සදහන් කර ඇත"
                         android:id="@+id/imulCheck"
                         android:layout_marginTop="20dp"
@@ -196,7 +197,7 @@
 
                     <CheckBox
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:text="Log book&#10;ලොග් පොත"
                         android:id="@+id/logCheck"
                         android:layout_marginTop="20dp"
@@ -207,7 +208,7 @@
 
                     <CheckBox
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:text="High seas operation license&#10;මහ මුහුදේ මෙහෙයුම් බලපත්‍රය"
                         android:id="@+id/highSeaLicenseCheck"
                         android:textColor="#000000"
@@ -221,7 +222,7 @@
 
                     <CheckBox
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:text="Boat certificate(blue book)&#10;බෝට්ටු සහතිකය (නිල් පොත)"
                         android:id="@+id/blueBookCheck"
                         android:textColor="#000000"
@@ -235,7 +236,7 @@
 
                     <CheckBox
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:text="Safety jackets&#10;ආරක්ෂිත ඇඳුම් කට්ටල"
                         android:id="@+id/safetyjacketCheck"
                         android:textColor="#000000"
@@ -271,14 +272,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Submit"
+                        android:clickable ="false"
                         android:id="@+id/button"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_marginTop="15dp"
+                        android:enabled="false" />
 
                 </LinearLayout>
-
-
-
 
             </RelativeLayout>
         </ScrollView>

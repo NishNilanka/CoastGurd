@@ -57,6 +57,7 @@ public class getArrivalIMUL extends AsyncTask<String,String,String> {
         try {
 
             JSONArray jArray = new JSONArray(result);
+
             for(int i=0; i<jArray.length();i++){
                 JSONObject json = jArray.getJSONObject(i);
                 ArrivalRegNo.add(json.getString("local_reg_no"));
@@ -64,7 +65,7 @@ public class getArrivalIMUL extends AsyncTask<String,String,String> {
             }
 
             //text.setText(s);
-            //System.out.println("nishan123 " + RegNo);
+            System.out.println("nishan123 " + ArrivalRegNo);
 
         } catch (Exception e) {
             // TODO: handle exception

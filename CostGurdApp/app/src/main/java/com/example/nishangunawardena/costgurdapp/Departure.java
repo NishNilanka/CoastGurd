@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class Departure extends AppCompatActivity implements View.OnClickListener {
@@ -26,37 +27,47 @@ public class Departure extends AppCompatActivity implements View.OnClickListener
     EditText remarks;
     String regNumber;
     String voyageNo;
+    ArrayList<String> departyreIMULANo = new ArrayList<String>();
+    ArrayAdapter<String> departureAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_departure);
-        final Getdata gd = new Getdata();
 
-        Spinner spinner=(Spinner)findViewById(R.id.spinner);
-        final String areaCode = spinner.getSelectedItem().toString();
+        Getdata gd = new Getdata();
+        gd.execute("http://192.248.22.121/GPS_mobile/Nishan/getlocal_reg_no.php?");
+        final Spinner spinner=(Spinner)findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                              @Override
-                                              public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                                  gd.execute("http://192.248.22.121/GPS_mobile/Nishan/getlocal_reg_no.php?code=areaCode");
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String areaCode = spinner.getSelectedItem().toString();
+                departyreIMULANo.clear();
+                text = (AutoCompleteTextView) findViewById(R.id.autoRegNo);
+                text.setText("");
+                text.setThreshold(1);
+                getIMULAbyAreaCode(areaCode);
+                System.out.println(departyreIMULANo);
+                departureAdapter = new ArrayAdapter<String>(Departure.this, R.layout.support_simple_spinner_dropdown_item, departyreIMULANo);
+                departureAdapter.notifyDataSetChanged();
+                text.setAdapter(departureAdapter);
 
-                                              }
+                RegNoSelect regNo = new RegNoSelect();
+                text.setOnItemClickListener(regNo);
+                text.setOnItemSelectedListener(regNo);
+                text.setSelection(0);
 
-                                              @Override
-                                              public void onNothingSelected(AdapterView<?> parent) {
 
-                                              }
+            }
 
-                                          });
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-            text = (AutoCompleteTextView) findViewById(R.id.autoRegNo);
-        text.setThreshold(1);
-        text.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, Getdata.RegNo));
+            }
 
-        RegNoSelect regNo = new RegNoSelect();
-        text.setOnItemClickListener(regNo);
-        text.setOnItemSelectedListener(regNo);
-        text.setSelection(0);
+        });
+
+
 
         sendButton = (Button) findViewById(R.id.button);
         remarks = (EditText) findViewById(R.id.remarks);
@@ -76,6 +87,18 @@ public class Departure extends AppCompatActivity implements View.OnClickListener
         return;
     }
 
+    public void getIMULAbyAreaCode(String code)
+    {
+
+        for (String original : Getdata.RegNo)
+        {
+            if (original.substring(original.length()-3).equals(code)){
+                departyreIMULANo.add(original);
+            }
+        }
+
+
+    }
     @Override
     public void onClick(View v) {
 
@@ -120,7 +143,7 @@ public class Departure extends AppCompatActivity implements View.OnClickListener
                 }
                 String remarksValue = remarks.getText().toString();
                 SendDepartureData sendDepartureData = new SendDepartureData();
-
+                System.out.println(imul);
                 try{
                     String safeUrl = "http://192.248.22.121/GPS_mobile/Nishan/SendDepartureData.php?" +
                             "q="+ URLEncoder.encode(imul)+"&voyageNo="+URLEncoder.encode(voyageNo)+
@@ -131,6 +154,8 @@ public class Departure extends AppCompatActivity implements View.OnClickListener
                             "&safetyJackets="+URLEncoder.encode(safetyJacket)+
                             "&remarks="+URLEncoder.encode(remarksValue)+"";
                     String result = sendDepartureData.execute(safeUrl).get();
+                    System.out.print(safeUrl);
+                    System.out.print(result);
                     if(result.length() > 0)
                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
                     else
@@ -178,6 +203,7 @@ public class Departure extends AppCompatActivity implements View.OnClickListener
             date.setText(array[0]);
             boatName.setText(array[2]);
             voyageNo = array[3];
+            sendButton.setEnabled(true);
 
             //System.out.println("1423333 " + array[1]);
 
@@ -207,12 +233,13 @@ public class Departure extends AppCompatActivity implements View.OnClickListener
             date.setText(array[0]);
             boatName.setText(array[3]);
             voyageNo = array[2];
+            sendButton.setEnabled(true);
             //System.out.println("1423333 " + array[1]);
         }
 
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
-
+            sendButton.setEnabled(false);
         }
     }
 }

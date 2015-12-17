@@ -9,10 +9,12 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +25,7 @@ import java.util.concurrent.ExecutionException;
 public class DashBoard extends AppCompatActivity {
 
     TextView boatDetailsType;
+    ListView listView;
     static int clickedButton= 0;
 
     @Override
@@ -33,6 +36,7 @@ public class DashBoard extends AppCompatActivity {
         String s = null;
 
         boatDetailsType = (TextView) findViewById(R.id.boatText);
+        listView = (ListView) findViewById(R.id.listView);
         boatDetailsType.setText("All Boats");
         try {
 
@@ -49,7 +53,7 @@ public class DashBoard extends AppCompatActivity {
             }
             ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.boats, mobileArray);
 
-            ListView listView = (ListView) findViewById(R.id.listView);
+
             listView.setAdapter(adapter);
 
             //System.out.print(s);
@@ -60,8 +64,6 @@ public class DashBoard extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
 
         ImageView departureImage = (ImageView) findViewById(R.id.btnDeparture);
         ImageView arrivalImage = (ImageView) findViewById(R.id.btnArrival);
@@ -74,6 +76,16 @@ public class DashBoard extends AppCompatActivity {
         final ImageView arrivedBoat = (ImageView) findViewById(R.id.btnArrived);
         final ImageView QCApprovedBoat = (ImageView) findViewById(R.id.btnQCApproved);
         final ImageView FIApproved = (ImageView) findViewById(R.id.btnFIapproaval);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Object o = listView.getItemAtPosition(position);
+                //As you are using Default String Adapter
+                Toast.makeText(getBaseContext(),o.toString(),Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
         departureImage.setOnLongClickListener(new View.OnLongClickListener() {
 
@@ -454,7 +466,6 @@ public class DashBoard extends AppCompatActivity {
                 .setNegativeButton("No", null)
                 .show();
     }
-
 
 
 }

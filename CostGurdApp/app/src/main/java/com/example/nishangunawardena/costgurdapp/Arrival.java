@@ -1,7 +1,7 @@
 package com.example.nishangunawardena.costgurdapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,10 +9,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class Arrival extends AppCompatActivity implements View.OnClickListener{
@@ -25,22 +27,49 @@ public class Arrival extends AppCompatActivity implements View.OnClickListener{
     EditText remarks;
     String regNumber;
     String voyageNo;
+    ArrayList<String> IMULANo = new ArrayList<String>();
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arrival);
-        getArrivalIMUL ga = new getArrivalIMUL();
-        ga.execute("http://192.248.22.121/GPS_mobile/Nishan/getArrivalIMUL.php");
 
-        text = (AutoCompleteTextView) findViewById(R.id.arrivalRegNo);
-        text.setThreshold(1);
-        text.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, getArrivalIMUL.ArrivalRegNo));
+        getArrivalIMUL getArrivalIMULA = new getArrivalIMUL();
+        getArrivalIMULA.execute("http://192.248.22.121/GPS_mobile/Nishan/getArrivalIMUL.php");
+        final Spinner spinner=(Spinner)findViewById(R.id.arrivalspinner);
 
-        RegNoSelect regNo = new RegNoSelect();
-        text.setOnItemClickListener(regNo);
-        text.setOnItemSelectedListener(regNo);
-        text.setSelection(5);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String areaCode = spinner.getSelectedItem().toString();
+
+                text = (AutoCompleteTextView) findViewById(R.id.arrivalRegNo);
+                text.setText("");
+                text.setThreshold(1);
+                IMULANo.clear();
+                getIMULAbyAreaCode(areaCode);
+                adapter = new ArrayAdapter<String>(Arrival.this, R.layout.support_simple_spinner_dropdown_item, IMULANo);
+                adapter.notifyDataSetChanged();
+                text.setAdapter(adapter);
+                RegNoSelect regNo = new RegNoSelect();
+                text.setOnItemClickListener(regNo);
+                text.setOnItemSelectedListener(regNo);
+                text.setSelection(0);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        });
+
+
+
+
+
 
         sendButton = (Button) findViewById(R.id.btnArribalSubmit);
         remarks = (EditText) findViewById(R.id.arrivalRemarks);
@@ -48,6 +77,25 @@ public class Arrival extends AppCompatActivity implements View.OnClickListener{
         prohibitCheckBox = (CheckBox) findViewById(R.id.checksea);
         sharkCheckBox = (CheckBox) findViewById(R.id.checkshark);
         sendButton.setOnClickListener(this);
+
+    }
+
+    public void getIMULAbyAreaCode(String code)
+    {
+
+        for (String original : getArrivalIMUL.ArrivalRegNo)
+        {
+
+            System.out.println(original.substring(original.length()-3) +" "+ code);
+            //System.out.println(IMULANo);
+            if (original.substring(original.length()-3).equals(code)){
+                System.out.println(original.substring(original.length()-3));
+                IMULANo.add(original);
+
+            }
+            //System.out.println(IMULANo);
+        }
+
 
     }
 
@@ -149,6 +197,7 @@ public class Arrival extends AppCompatActivity implements View.OnClickListener{
             date.setText(array[0]);
             boatName.setText(array[2]);
             voyageNo = array[3];
+            sendButton.setEnabled(true);
 
         }
 
@@ -180,11 +229,12 @@ public class Arrival extends AppCompatActivity implements View.OnClickListener{
             date.setText(array[0]);
             boatName.setText(array[2]);
             voyageNo = array[3];
+            sendButton.setEnabled(true);
         }
 
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
-
+            sendButton.setEnabled(false);
         }
     }
 }
