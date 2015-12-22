@@ -36,6 +36,8 @@
             android:label="Arrival"
             android:screenOrientation="portrait" >
         </activity>
+        <activity android:name=".PopUpWindow" android:theme="@style/Theme.Transparent">
+        </activity>
     </application>
 
 </manifest>

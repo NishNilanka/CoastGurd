@@ -66,7 +66,7 @@ public class Getdata extends AsyncTask<String,String,String> {
             }
 
             //text.setText(s);
-            System.out.println("nishan123 " + RegNo);
+            //System.out.println("nishan123 " + RegNo);
 
         } catch (Exception e) {
             // TODO: handle exception

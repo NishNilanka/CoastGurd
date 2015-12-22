@@ -20,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
 public class DashBoard extends AppCompatActivity {
@@ -32,7 +34,7 @@ public class DashBoard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
-        getBoatDetails boat = new getBoatDetails();
+        final getBoatDetails boat = new getBoatDetails();
         String s = null;
 
         boatDetailsType = (TextView) findViewById(R.id.boatText);
@@ -80,12 +82,32 @@ public class DashBoard extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Object o = listView.getItemAtPosition(position);
                 //As you are using Default String Adapter
-                Toast.makeText(getBaseContext(),o.toString(),Toast.LENGTH_SHORT).show();
+
+                String IMULA = o.toString().split("-")[0];
+                boatDetails bt = new boatDetails();
+                try {
+                    String boat = bt.execute("http://192.248.22.121/GPS_mobile/Nishan/getBoat.php?IMULA="+URLEncoder.encode(IMULA, "UTF-8")).get();
+                    Intent popup = new Intent(DashBoard.this, PopUpWindow.class);
+                    Toast.makeText(getBaseContext(),boat,Toast.LENGTH_SHORT).show();
+                    popup.putExtra("boatlist", boat);
+                    startActivity(popup);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
                 return false;
             }
         });
+
+
+
 
         departureImage.setOnLongClickListener(new View.OnLongClickListener() {
 
