@@ -42,8 +42,8 @@ public class PopUpWindow extends Activity {
                 txtRegNo.setText(json.getString("local_reg_no"));
                 boatName.setText(json.getString("name"));
                 highSeaLicense.setText(json.getString("high_seas_license_no"));
-                boatLength.setText(json.getString("boat_length")+ "m");
-                grossTonnage.setText(json.getString("gross_tonnage") + "T");
+                boatLength.setText(json.getString("boat_length")+ " m");
+                grossTonnage.setText(json.getString("gross_tonnage") + " T");
                 callSign.setText(json.getString("call_sign"));
                 String ownerNameText = json.getString("first_name") + " " + json.getString("last_name");
                 ownerName.setText(ownerNameText);
