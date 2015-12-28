@@ -1,7 +1,7 @@
 package com.example.nishangunawardena.costgurdapp;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,7 +17,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class Arrival extends AppCompatActivity implements View.OnClickListener{
+public class Arrival extends Activity implements View.OnClickListener{
 
     AutoCompleteTextView text;
     TextView harbour;
@@ -43,6 +43,7 @@ public class Arrival extends AppCompatActivity implements View.OnClickListener{
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 String areaCode = spinner.getSelectedItem().toString();
 
                 text = (AutoCompleteTextView) findViewById(R.id.arrivalRegNo);

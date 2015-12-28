@@ -1,5 +1,6 @@
 package com.example.nishangunawardena.costgurdapp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,14 +8,12 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
-public class DashBoard extends AppCompatActivity {
+public class DashBoard extends Activity {
 
     TextView boatDetailsType;
     ListView listView;
@@ -91,7 +90,7 @@ public class DashBoard extends AppCompatActivity {
                 try {
                     String boat = bt.execute("http://192.248.22.121/GPS_mobile/Nishan/getBoat.php?IMULA="+URLEncoder.encode(IMULA, "UTF-8")).get();
                     Intent popup = new Intent(DashBoard.this, PopUpWindow.class);
-                    Toast.makeText(getBaseContext(),boat,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getBaseContext(),boat,Toast.LENGTH_SHORT).show();
                     popup.putExtra("boatlist", boat);
                     startActivity(popup);
                 } catch (InterruptedException e) {

@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
+    android:layout_height="match_parent"
     android:background="#3f797d"
     tools:context="com.example.nishangunawardena.costgurdapp.Departure">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bannerDeparture">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/banner_departure"
+            android:adjustViewBounds="true"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:layout_below="@+id/bannerDeparture"
         android:id="@+id/basiclayout">
 
         <RelativeLayout
@@ -23,12 +38,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
-                android:text="Reg. No :&#10;ලියාපදිංචි අංකය :"
+                android:text="Area Code :&#10;ප්‍රදේශයේ කේතය :"
                 android:textSize="20dp"
-                android:id="@+id/textView3"
+                android:id="@+id/txtAreaCode"
                 android:textColor="#000000"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"/>
+
 
             <Spinner
                 android:layout_width="70dp"
@@ -37,9 +53,21 @@
                 android:clickable="true"
                 android:spinnerMode="dropdown"
                 android:entries="@array/ComboBoxValues"
-                android:layout_toRightOf="@+id/textView3"
+                android:layout_toRightOf="@+id/txtAreaCode"
                 android:layout_alignTop="@+id/textView3"
                 android:layout_alignBottom="@+id/textView3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
+                android:text="Reg. No :&#10;ලියාපදිංචි අංකය :"
+                android:textSize="20dp"
+                android:id="@+id/textView3"
+                android:layout_toRightOf="@+id/spinner"
+                android:textColor="#000000"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"/>
 
             <com.example.nishangunawardena.costgurdapp.Custom.AutocompleteShipIDText
                 android:inputType="number"
@@ -49,9 +77,9 @@
                 android:layout_marginLeft="10dp"
                 android:hint="Enter IMULA No"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/spinner"
-                android:layout_alignTop="@+id/spinner"
-                android:layout_alignBottom="@+id/spinner"
+                android:layout_toRightOf="@+id/textView3"
+                android:layout_alignTop="@+id/textView3"
+                android:layout_alignBottom="@+id/textView3"
                 android:editable="false"
                 android:text=""
                 android:imeOptions="actionDone"
@@ -269,10 +297,10 @@
                         android:layout_alignStart="@+id/textView3" />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:text="Submit"
-                        android:clickable ="false"
+                        android:clickable ="true"
                         android:id="@+id/button"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="15dp"

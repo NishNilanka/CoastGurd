@@ -1,7 +1,7 @@
 package com.example.nishangunawardena.costgurdapp;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,7 +17,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class Departure extends AppCompatActivity implements View.OnClickListener {
+public class Departure extends Activity implements View.OnClickListener {
 
     AutoCompleteTextView text;
     TextView harbour;
@@ -36,17 +36,20 @@ public class Departure extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_departure);
 
         Getdata gd = new Getdata();
-        gd.execute("http://192.248.22.121/GPS_mobile/Nishan/getlocal_reg_no.php?");
+        gd.execute("http://192.248.22.121/GPS_mobile/Nishan/getlocal_reg_no.php");
         final Spinner spinner=(Spinner)findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 String areaCode = spinner.getSelectedItem().toString();
-                departyreIMULANo.clear();
+
                 text = (AutoCompleteTextView) findViewById(R.id.autoRegNo);
                 text.setText("");
                 text.setThreshold(1);
-                getIMULAbyAreaCode(areaCode);
+                departyreIMULANo.clear();
+                //Toast.makeText(getBaseContext(),areaCode,Toast.LENGTH_SHORT).show();
+                getDepartureIMULAbyAreaCode(areaCode);
                 System.out.println(departyreIMULANo);
                 departureAdapter = new ArrayAdapter<String>(Departure.this, R.layout.support_simple_spinner_dropdown_item, departyreIMULANo);
                 departureAdapter.notifyDataSetChanged();
@@ -87,13 +90,19 @@ public class Departure extends AppCompatActivity implements View.OnClickListener
         return;
     }
 
-    public void getIMULAbyAreaCode(String code)
+    public void getDepartureIMULAbyAreaCode(String code)
     {
 
         for (String original : Getdata.RegNo)
         {
+
+            System.out.println(original.substring(original.length()-3) +" "+ code);
+            //System.out.println(IMULANo);
+
             if (original.substring(original.length()-3).equals(code)){
                 departyreIMULANo.add(original);
+                System.out.println(original.substring(original.length() - 3));
+                System.out.println("depart " + departyreIMULANo);
             }
         }
 
