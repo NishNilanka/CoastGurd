@@ -8,6 +8,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/layoutLogin"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -30,6 +31,7 @@
             android:hint="Enter User Name"
             android:layout_gravity="center"
             android:id="@+id/username"
+            android:text="123456789"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -40,6 +42,7 @@
             android:hint="Enter Password"
             android:layout_marginTop="20dp"
             android:layout_width="300dp"
+            android:text="123456789"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:inputType="textPassword"
@@ -54,6 +57,41 @@
             android:layout_gravity="center"
             android:text="Login"
             />
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/layoutLogin"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:id="@+id/lodingLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Loading..."
+                android:id="@+id/textView50"
+                android:layout_marginTop="30dp"
+                android:textColor="#ffffff"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center" />
+
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView50"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center"/>
+
+
+
 
     </LinearLayout>
 

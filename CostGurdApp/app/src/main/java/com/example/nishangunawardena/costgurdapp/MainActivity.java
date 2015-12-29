@@ -11,31 +11,101 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.ExecutionException;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 public class MainActivity extends Activity {
 
-    Button b1,b2;
-    EditText userName,password;
+    Button btnLoggin;
+    EditText txtUserName,txtPassword;
+    ProgressBar progressBar;
+    TextView Loading;
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-            b1=(Button)findViewById(R.id.login);
-            userName =(EditText)findViewById(R.id.username);
-            password =(EditText)findViewById(R.id.Password);
+            btnLoggin=(Button)findViewById(R.id.login);
 
-            b1.setOnClickListener(new View.OnClickListener() {
+            Loading = (TextView) findViewById(R.id.textView50);
+            progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+            Loading.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+            txtUserName =(EditText)findViewById(R.id.username);
+            txtPassword =(EditText)findViewById(R.id.Password);
+            btnLoggin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
-                    if(userName.getText().toString().equals("admin") &&
-                            password.getText().toString().equals("admin")) {
-                        Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
+
                         if(isConnectingToInternet()) {
-                            Intent intent;
-                            intent = new Intent(v.getContext(), DashBoard.class);
-                            startActivity(intent);
-                            finish();
+
+
+                            txtUserName =(EditText)findViewById(R.id.username);
+                            txtPassword =(EditText)findViewById(R.id.Password);
+                            progressBar.setVisibility(View.VISIBLE);
+                            Loading.setVisibility(View.VISIBLE);
+
+
+                            if(txtUserName.getText().toString().trim().equals("")||txtPassword.getText().toString().trim().equals(""))
+                            {
+                                Loading.setVisibility(View.GONE);
+                                progressBar.setVisibility(View.GONE);
+                                return;
+                            }
+                            else {
+                                userValidation validity = new userValidation();
+                                try {
+                                    String result = validity.execute(txtUserName.getText().toString().trim(), calculateHMAC(txtPassword.getText().toString().trim())).get();
+                                    JSONObject json = new JSONObject(result);
+                                    System.out.println(json.getString("success"));
+                                    if (json.getString("success").equals("1")) {
+                                        Intent intent;
+                                        intent = new Intent(v.getContext(), DashBoard.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Loading.setVisibility(View.GONE);
+                                        progressBar.setVisibility(View.GONE);
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                        builder.setMessage("Invalid User Name or Password!\nවලංගු නොවන පරිශීලක නම හෝ මුරපදය!")
+                                                .setCancelable(false)
+                                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                            /*Intent intent;
+                                            intent = new Intent(v.getContext(), DashBoard.class);
+                                            startActivity(intent);
+                                            finish();*/
+
+                                                    }
+                                                });
+                                        AlertDialog alert = builder.create();
+                                        alert.show();
+
+                                    }
+
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                //boolean status = login(txtUserName.getText().toString().trim(), calculateHMAC(txtPassword.getText().toString().trim()));
+
+
+                                //Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
+                                //System.out.println(calculateHMAC(txtPassword.getText().toString().trim()));
+                            }
 
                         }else{
                             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -44,10 +114,10 @@ public class MainActivity extends Activity {
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            Intent intent;
+                                            /*Intent intent;
                                             intent = new Intent(v.getContext(), DashBoard.class);
                                             startActivity(intent);
-                                            finish();
+                                            finish();*/
 
                                         }
                                     });
@@ -57,13 +127,19 @@ public class MainActivity extends Activity {
 
 
                     }
-                    else{
+                   /* else{
                         Toast.makeText(getApplicationContext(), "Wrong Credentials",Toast.LENGTH_SHORT).show();
 
-                    }
-                }
+                    }*/
+
             });
 
+    }
+
+    private boolean login(final String username, final String password) {
+
+
+        return false;
     }
 
     public boolean isConnectingToInternet(){
@@ -83,6 +159,26 @@ public class MainActivity extends Activity {
             return false;
         }
         return status;
+    }
+
+    public static String calculateHMAC(String password) {
+        try {
+            String key = "47f476b4";
+            SecretKeySpec sk = new SecretKeySpec(key.getBytes(), "HMACSHA256");
+
+            // Create a MAC object using HMAC-MD5 and initialize with key
+            Mac mac1 = Mac.getInstance("HMACSHA256");
+            mac1.init(sk);
+            byte[] digest1 = mac1.doFinal(password.getBytes());
+            String result = "";
+            for (final byte element : digest1) {
+                result += Integer.toString((element & 0xff) + 0x100, 16).substring(1);
+            }
+            return result;
+        } catch (NoSuchAlgorithmException | InvalidKeyException ex) {
+            //Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 

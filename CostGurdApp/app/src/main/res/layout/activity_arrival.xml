@@ -209,7 +209,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Departure Check List"
+                        android:text="Arrival Check List"
                         android:id="@+id/textView12"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
                         android:textColor="#000000" />
