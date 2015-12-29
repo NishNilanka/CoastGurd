@@ -82,26 +82,41 @@ public class DashBoard extends Activity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Object o = listView.getItemAtPosition(position);
-                //As you are using Default String Adapter
+                if (isConnectingToInternet()) {
+                    Object o = listView.getItemAtPosition(position);
+                    //As you are using Default String Adapter
 
-                String IMULA = o.toString().split("-")[0];
-                boatDetails bt = new boatDetails();
-                try {
-                    String boat = bt.execute("http://192.248.22.121/GPS_mobile/Nishan/getBoat.php?IMULA="+URLEncoder.encode(IMULA, "UTF-8")).get();
-                    Intent popup = new Intent(DashBoard.this, PopUpWindow.class);
-                    //Toast.makeText(getBaseContext(),boat,Toast.LENGTH_SHORT).show();
-                    popup.putExtra("boatlist", boat);
-                    startActivity(popup);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+                    String IMULA = o.toString().split("-")[0];
+                    boatDetails bt = new boatDetails();
+                    try {
+                        String boat = bt.execute("http://192.248.22.121/GPS_mobile/Nishan/getBoat.php?IMULA=" + URLEncoder.encode(IMULA, "UTF-8")).get();
+                        Intent popup = new Intent(DashBoard.this, PopUpWindow.class);
+                        //Toast.makeText(getBaseContext(),boat,Toast.LENGTH_SHORT).show();
+                        popup.putExtra("boatlist", boat);
+                        startActivity(popup);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+                    return false;
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DashBoard.this);
+                    builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                    return false;
                 }
-
-                return false;
             }
         });
 
@@ -191,43 +206,58 @@ public class DashBoard extends Activity {
         Leaving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = null;
-                getBoats deportBoats =  new getBoats();
-                if(clickedButton == 0)
-                    allBoats.setImageResource(R.drawable.allboats);
-                else if(clickedButton == 2)
-                    arriving.setImageResource(R.drawable.arrivingboats);
-                else if(clickedButton == 3)
-                    arrivedBoat.setImageResource(R.drawable.arrivedboats);
-                else if(clickedButton == 4)
-                    FIApproved.setImageResource(R.drawable.fiapprovedboats);
-                else if(clickedButton == 5)
-                    QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
-                clickedButton= 1;
-                Leaving.setImageResource(R.drawable.leavingoatsp);
-                try {
 
-                    s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getToBeDeportedBoats.php").get();
-                    JSONArray jArray = new JSONArray(s);
-                    int count = jArray.length();
-                    String[] mobileArray = new String[count];
-                    for(int i=0; i<count;i++) {
-                        JSONObject json = jArray.getJSONObject(i);
-                        mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
+                if (isConnectingToInternet()) {
+                    String s = null;
+                    getBoats deportBoats = new getBoats();
+                    if (clickedButton == 0)
+                        allBoats.setImageResource(R.drawable.allboats);
+                    else if (clickedButton == 2)
+                        arriving.setImageResource(R.drawable.arrivingboats);
+                    else if (clickedButton == 3)
+                        arrivedBoat.setImageResource(R.drawable.arrivedboats);
+                    else if (clickedButton == 4)
+                        FIApproved.setImageResource(R.drawable.fiapprovedboats);
+                    else if (clickedButton == 5)
+                        QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
+                    clickedButton = 1;
+                    Leaving.setImageResource(R.drawable.leavingoatsp);
+                    try {
 
+                        s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getToBeDeportedBoats.php").get();
+                        JSONArray jArray = new JSONArray(s);
+                        int count = jArray.length();
+                        String[] mobileArray = new String[count];
+                        for (int i = 0; i < count; i++) {
+                            JSONObject json = jArray.getJSONObject(i);
+                            mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
+
+                        }
+
+                        ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
+                        boatDetailsType.setText("Leaving Boats");
+                        ListView listView = (ListView) findViewById(R.id.listView);
+                        listView.setAdapter(adapter);
+                        //System.out.print(s);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DashBoard.this);
+                    builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                    ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
-                    boatDetailsType.setText("Leaving Boats");
-                    ListView listView = (ListView) findViewById(R.id.listView);
-                    listView.setAdapter(adapter);
-                    //System.out.print(s);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             }
         });
@@ -235,43 +265,57 @@ public class DashBoard extends Activity {
         allBoats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = null;
-                getBoats deportBoats =  new getBoats();
-                allBoats.setImageResource(R.drawable.allboatsp);
-                if(clickedButton == 1)
-                    Leaving.setImageResource(R.drawable.leavingboats);
-                else if(clickedButton == 2)
-                    arriving.setImageResource(R.drawable.arrivingboats);
-                else if(clickedButton == 3)
-                    arrivedBoat.setImageResource(R.drawable.arrivedboats);
-                else if(clickedButton == 4)
-                    FIApproved.setImageResource(R.drawable.fiapprovedboats);
-                else if(clickedButton == 5)
-                    QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
-                    clickedButton= 0;
-                try {
+                if (isConnectingToInternet()) {
+                    String s = null;
+                    getBoats deportBoats = new getBoats();
+                    allBoats.setImageResource(R.drawable.allboatsp);
+                    if (clickedButton == 1)
+                        Leaving.setImageResource(R.drawable.leavingboats);
+                    else if (clickedButton == 2)
+                        arriving.setImageResource(R.drawable.arrivingboats);
+                    else if (clickedButton == 3)
+                        arrivedBoat.setImageResource(R.drawable.arrivedboats);
+                    else if (clickedButton == 4)
+                        FIApproved.setImageResource(R.drawable.fiapprovedboats);
+                    else if (clickedButton == 5)
+                        QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
+                    clickedButton = 0;
+                    try {
 
-                    s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getAllBoats.php").get();
-                    JSONArray jArray = new JSONArray(s);
-                    int count = jArray.length();
-                    String[] mobileArray = new String[count];
-                    for(int i=0; i<count;i++) {
-                        JSONObject json = jArray.getJSONObject(i);
-                        mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
+                        s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getAllBoats.php").get();
+                        JSONArray jArray = new JSONArray(s);
+                        int count = jArray.length();
+                        String[] mobileArray = new String[count];
+                        for (int i = 0; i < count; i++) {
+                            JSONObject json = jArray.getJSONObject(i);
+                            mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
 
+                        }
+
+                        ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
+                        boatDetailsType.setText("All Boats");
+                        ListView listView = (ListView) findViewById(R.id.listView);
+                        listView.setAdapter(adapter);
+                        //System.out.print(s);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DashBoard.this);
+                    builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                    ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
-                    boatDetailsType.setText("All Boats");
-                    ListView listView = (ListView) findViewById(R.id.listView);
-                    listView.setAdapter(adapter);
-                    //System.out.print(s);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             }
         });
@@ -279,43 +323,59 @@ public class DashBoard extends Activity {
         arriving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = null;
-                getBoats deportBoats =  new getBoats();
-                if(clickedButton == 0)
-                    allBoats.setImageResource(R.drawable.allboats);
-                else if(clickedButton == 1)
-                    Leaving.setImageResource(R.drawable.leavingboats);
-                else if(clickedButton == 3)
-                    arrivedBoat.setImageResource(R.drawable.arrivedboats);
-                else if(clickedButton == 4)
-                    FIApproved.setImageResource(R.drawable.fiapprovedboats);
-                else if(clickedButton == 5)
-                    QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
-                arriving.setImageResource(R.drawable.arrivingboatsp);
-                clickedButton= 2;
-                try {
+                if (isConnectingToInternet()) {
+                    String s = null;
+                    getBoats deportBoats = new getBoats();
+                    if (clickedButton == 0)
+                        allBoats.setImageResource(R.drawable.allboats);
+                    else if (clickedButton == 1)
+                        Leaving.setImageResource(R.drawable.leavingboats);
+                    else if (clickedButton == 3)
+                        arrivedBoat.setImageResource(R.drawable.arrivedboats);
+                    else if (clickedButton == 4)
+                        FIApproved.setImageResource(R.drawable.fiapprovedboats);
+                    else if (clickedButton == 5)
+                        QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
+                    arriving.setImageResource(R.drawable.arrivingboatsp);
+                    clickedButton = 2;
+                    try {
 
-                    s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getReportingRangeBoats.php").get();
-                    JSONArray jArray = new JSONArray(s);
-                    int count = jArray.length();
-                    String[] mobileArray = new String[count];
-                    for(int i=0; i<count;i++) {
-                        JSONObject json = jArray.getJSONObject(i);
-                        mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
+                        s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getReportingRangeBoats.php").get();
+                        JSONArray jArray = new JSONArray(s);
+                        int count = jArray.length();
+                        String[] mobileArray = new String[count];
+                        for (int i = 0; i < count; i++) {
+                            JSONObject json = jArray.getJSONObject(i);
+                            mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
 
+                        }
+
+                        ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
+                        boatDetailsType.setText("Arriving Boats");
+                        ListView listView = (ListView) findViewById(R.id.listView);
+                        listView.setAdapter(adapter);
+                        //System.out.print(s);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                }else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DashBoard.this);
+                    builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                    ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
-                    boatDetailsType.setText("Arriving Boats");
-                    ListView listView = (ListView) findViewById(R.id.listView);
-                    listView.setAdapter(adapter);
-                    //System.out.print(s);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
                 }
             }
         });
@@ -323,43 +383,59 @@ public class DashBoard extends Activity {
         arrivedBoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = null;
-                getBoats deportBoats =  new getBoats();
-                if(clickedButton == 0)
-                    allBoats.setImageResource(R.drawable.allboats);
-                else if(clickedButton == 1)
-                    Leaving.setImageResource(R.drawable.leavingboats);
-                else if(clickedButton == 2)
-                    arriving.setImageResource(R.drawable.arrivingboats);
-                else if(clickedButton == 4)
-                    FIApproved.setImageResource(R.drawable.fiapprovedboats);
-                else if(clickedButton == 5)
-                    QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
-                arrivedBoat.setImageResource(R.drawable.arrivedboatsp);
-                clickedButton= 3;
-                try {
+                if (isConnectingToInternet()) {
+                    String s = null;
+                    getBoats deportBoats = new getBoats();
+                    if (clickedButton == 0)
+                        allBoats.setImageResource(R.drawable.allboats);
+                    else if (clickedButton == 1)
+                        Leaving.setImageResource(R.drawable.leavingboats);
+                    else if (clickedButton == 2)
+                        arriving.setImageResource(R.drawable.arrivingboats);
+                    else if (clickedButton == 4)
+                        FIApproved.setImageResource(R.drawable.fiapprovedboats);
+                    else if (clickedButton == 5)
+                        QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
+                    arrivedBoat.setImageResource(R.drawable.arrivedboatsp);
+                    clickedButton = 3;
+                    try {
 
-                    s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getArrivedBoats.php").get();
-                    JSONArray jArray = new JSONArray(s);
-                    int count = jArray.length();
-                    String[] mobileArray = new String[count];
-                    for(int i=0; i<count;i++) {
-                        JSONObject json = jArray.getJSONObject(i);
-                        mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
+                        s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getArrivedBoats.php").get();
+                        JSONArray jArray = new JSONArray(s);
+                        int count = jArray.length();
+                        String[] mobileArray = new String[count];
+                        for (int i = 0; i < count; i++) {
+                            JSONObject json = jArray.getJSONObject(i);
+                            mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
 
+                        }
+
+                        ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
+                        boatDetailsType.setText("Arrived Boats");
+                        ListView listView = (ListView) findViewById(R.id.listView);
+                        listView.setAdapter(adapter);
+                        //System.out.print(s);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                }else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DashBoard.this);
+                    builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                    ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
-                    boatDetailsType.setText("Arrived Boats");
-                    ListView listView = (ListView) findViewById(R.id.listView);
-                    listView.setAdapter(adapter);
-                    //System.out.print(s);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
                 }
 
             }
@@ -369,43 +445,58 @@ public class DashBoard extends Activity {
         QCApprovedBoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = null;
-                getBoats deportBoats =  new getBoats();
-                if(clickedButton == 0)
-                    allBoats.setImageResource(R.drawable.allboats);
-                else if(clickedButton == 1)
-                    Leaving.setImageResource(R.drawable.leavingboats);
-                else if(clickedButton == 3)
-                    arrivedBoat.setImageResource(R.drawable.arrivedboats);
-                else if(clickedButton == 4)
-                    FIApproved.setImageResource(R.drawable.fiapprovedboats);
-                else if(clickedButton == 2)
-                    arriving.setImageResource(R.drawable.arrivingboats);
-                QCApprovedBoat.setImageResource(R.drawable.qcapprovedboatsp);
-                clickedButton= 5;
-                try {
+                if (isConnectingToInternet()) {
+                    String s = null;
+                    getBoats deportBoats = new getBoats();
+                    if (clickedButton == 0)
+                        allBoats.setImageResource(R.drawable.allboats);
+                    else if (clickedButton == 1)
+                        Leaving.setImageResource(R.drawable.leavingboats);
+                    else if (clickedButton == 3)
+                        arrivedBoat.setImageResource(R.drawable.arrivedboats);
+                    else if (clickedButton == 4)
+                        FIApproved.setImageResource(R.drawable.fiapprovedboats);
+                    else if (clickedButton == 2)
+                        arriving.setImageResource(R.drawable.arrivingboats);
+                    QCApprovedBoat.setImageResource(R.drawable.qcapprovedboatsp);
+                    clickedButton = 5;
+                    try {
 
-                    s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getQCApprovedBoats.php").get();
-                    JSONArray jArray = new JSONArray(s);
-                    int count = jArray.length();
-                    String[] mobileArray = new String[count];
-                    for(int i=0; i<count;i++) {
-                        JSONObject json = jArray.getJSONObject(i);
-                        mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
+                        s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getQCApprovedBoats.php").get();
+                        JSONArray jArray = new JSONArray(s);
+                        int count = jArray.length();
+                        String[] mobileArray = new String[count];
+                        for (int i = 0; i < count; i++) {
+                            JSONObject json = jArray.getJSONObject(i);
+                            mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
 
+                        }
+
+                        ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
+                        boatDetailsType.setText("QC Approved Boats -  Arrival");
+                        ListView listView = (ListView) findViewById(R.id.listView);
+                        listView.setAdapter(adapter);
+                        //System.out.print(s);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                }else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DashBoard.this);
+                    builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                    ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
-                    boatDetailsType.setText("QC Approved Boats -  Arrival");
-                    ListView listView = (ListView) findViewById(R.id.listView);
-                    listView.setAdapter(adapter);
-                    //System.out.print(s);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             }
         });
@@ -413,43 +504,58 @@ public class DashBoard extends Activity {
         FIApproved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = null;
-                getBoats deportBoats =  new getBoats();
-                if(clickedButton == 0)
-                    allBoats.setImageResource(R.drawable.allboats);
-                else if(clickedButton == 1)
-                    Leaving.setImageResource(R.drawable.leavingboats);
-                else if(clickedButton == 3)
-                    arrivedBoat.setImageResource(R.drawable.arrivedboats);
-                else if(clickedButton == 2)
-                    arriving.setImageResource(R.drawable.arrivingboats);
-                else if(clickedButton == 5)
-                    QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
-                FIApproved.setImageResource(R.drawable.fiapprovedboatsp);
-                clickedButton= 4;
-                try {
+                if (isConnectingToInternet()) {
+                    String s = null;
+                    getBoats deportBoats = new getBoats();
+                    if (clickedButton == 0)
+                        allBoats.setImageResource(R.drawable.allboats);
+                    else if (clickedButton == 1)
+                        Leaving.setImageResource(R.drawable.leavingboats);
+                    else if (clickedButton == 3)
+                        arrivedBoat.setImageResource(R.drawable.arrivedboats);
+                    else if (clickedButton == 2)
+                        arriving.setImageResource(R.drawable.arrivingboats);
+                    else if (clickedButton == 5)
+                        QCApprovedBoat.setImageResource(R.drawable.qcapprovedboats);
+                    FIApproved.setImageResource(R.drawable.fiapprovedboatsp);
+                    clickedButton = 4;
+                    try {
 
-                    s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getFIApprovedBoats.php").get();
-                    JSONArray jArray = new JSONArray(s);
-                    int count = jArray.length();
-                    String[] mobileArray = new String[count];
-                    for(int i=0; i<count;i++) {
-                        JSONObject json = jArray.getJSONObject(i);
-                        mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
+                        s = deportBoats.execute("http://192.248.22.121/GPS_mobile/Nishan/getFIApprovedBoats.php").get();
+                        JSONArray jArray = new JSONArray(s);
+                        int count = jArray.length();
+                        String[] mobileArray = new String[count];
+                        for (int i = 0; i < count; i++) {
+                            JSONObject json = jArray.getJSONObject(i);
+                            mobileArray[i] = (json.getString("local_reg_no") + " - " + json.getString("name"));
 
+                        }
+
+                        ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
+                        boatDetailsType.setText("FI Approved Boats -  Arrival");
+                        ListView listView = (ListView) findViewById(R.id.listView);
+                        listView.setAdapter(adapter);
+                        //System.out.print(s);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                }else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DashBoard.this);
+                    builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                    ArrayAdapter adapter = new ArrayAdapter<String>(DashBoard.this, R.layout.boats, mobileArray);
-                    boatDetailsType.setText("FI Approved Boats -  Arrival");
-                    ListView listView = (ListView) findViewById(R.id.listView);
-                    listView.setAdapter(adapter);
-                    //System.out.print(s);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             }
         });
