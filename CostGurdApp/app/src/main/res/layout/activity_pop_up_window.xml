@@ -18,6 +18,11 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
 
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollPopUp" >
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +55,6 @@
                 android:layout_alignBottom="@+id/regName"
                 android:layout_alignStart="@+id/txtContactHome"
                 android:layout_alignLeft = "@+id/txtContactHome"
-                android:layout_marginLeft="10dp"
                 android:gravity="center_vertical" />
 
 
@@ -288,6 +292,7 @@
                 />
 
         </RelativeLayout>
+        </ScrollView>>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -297,12 +302,13 @@
 
             <Button
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="Close"
                 android:clickable ="true"
                 android:id="@+id/btnclose"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
+                android:background="@drawable/button_selector"
                 android:enabled="true" />
 
         </LinearLayout>
