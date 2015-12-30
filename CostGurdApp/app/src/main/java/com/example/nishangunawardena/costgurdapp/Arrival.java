@@ -2,6 +2,7 @@ package com.example.nishangunawardena.costgurdapp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,7 +39,12 @@ public class Arrival extends Activity implements View.OnClickListener{
         getArrivalIMUL getArrivalIMULA = new getArrivalIMUL();
         getArrivalIMULA.execute("http://192.248.22.121/GPS_mobile/Nishan/getArrivalIMUL.php");
         final Spinner spinner=(Spinner)findViewById(R.id.arrivalspinner);
+        text = (AutoCompleteTextView) findViewById(R.id.arrivalRegNo);
 
+        harbour = (TextView) findViewById(R.id.arrharbourText);
+        date = (TextView) findViewById(R.id.arrdepDate);
+        boatName = (TextView) findViewById(R.id.arrboatTextfield);
+        sendButton = (Button) findViewById(R.id.btnArribalSubmit);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -46,7 +52,6 @@ public class Arrival extends Activity implements View.OnClickListener{
 
                 String areaCode = spinner.getSelectedItem().toString();
 
-                text = (AutoCompleteTextView) findViewById(R.id.arrivalRegNo);
                 text.setText("");
                 text.setThreshold(1);
                 IMULANo.clear();
@@ -67,12 +72,24 @@ public class Arrival extends Activity implements View.OnClickListener{
 
         });
 
+        text.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getKeyCode() == KeyEvent.KEYCODE_DEL)
+                {
+                    System.out.println(text.getText().length());
+                    if(text.getText().length()!= 12) {
+                        //Toast.makeText(getApplicationContext(), "Nishan", Toast.LENGTH_LONG).show();
+                        harbour.setText("");
+                        boatName.setText("");
+                        date.setText("");
+                        sendButton.setEnabled(false);
+                    }
+                }
+                return false;
+            }
+        });
 
-
-
-
-
-        sendButton = (Button) findViewById(R.id.btnArribalSubmit);
         remarks = (EditText) findViewById(R.id.arrivalRemarks);
         complteLogBook = (CheckBox) findViewById(R.id.checkCompleteLogBook);
         prohibitCheckBox = (CheckBox) findViewById(R.id.checksea);
@@ -187,9 +204,7 @@ public class Arrival extends Activity implements View.OnClickListener{
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            harbour = (TextView) findViewById(R.id.arrharbourText);
-            date = (TextView) findViewById(R.id.arrdepDate);
-            boatName = (TextView) findViewById(R.id.arrboatTextfield);
+
             array = s.split("@");
             harbour.setText("");
             date.setText("");
@@ -218,11 +233,8 @@ public class Arrival extends Activity implements View.OnClickListener{
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            harbour = (TextView) findViewById(R.id.arrharbourText);
-            date = (TextView) findViewById(R.id.arrdepDate);
-            boatName = (TextView) findViewById(R.id.arrboatTextfield);
             array = s.split("@");
-            System.out.print(array);
+            //System.out.print(array);
             harbour.setText("");
             date.setText("");
             boatName.setText("");

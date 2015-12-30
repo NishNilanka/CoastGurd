@@ -2,6 +2,7 @@ package com.example.nishangunawardena.costgurdapp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,6 +36,12 @@ public class Departure extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_departure);
 
+        sendButton = (Button) findViewById(R.id.button);
+        text = (AutoCompleteTextView) findViewById(R.id.autoRegNo);
+        harbour = (TextView) findViewById(R.id.harbourText);
+        date = (TextView) findViewById(R.id.Date);
+        boatName = (TextView) findViewById(R.id.boatTextfield);
+        
         Getdata gd = new Getdata();
         gd.execute("http://192.248.22.121/GPS_mobile/Nishan/getlocal_reg_no.php");
         final Spinner spinner=(Spinner)findViewById(R.id.spinner);
@@ -44,7 +51,7 @@ public class Departure extends Activity implements View.OnClickListener {
 
                 String areaCode = spinner.getSelectedItem().toString();
 
-                text = (AutoCompleteTextView) findViewById(R.id.autoRegNo);
+
                 text.setText("");
                 text.setThreshold(1);
                 departyreIMULANo.clear();
@@ -70,9 +77,26 @@ public class Departure extends Activity implements View.OnClickListener {
 
         });
 
+        text.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
+                    System.out.println(text.getText().length());
+                    if (text.getText().length() != 12) {
+                        //Toast.makeText(getApplicationContext(), "Nishan", Toast.LENGTH_LONG).show();
+                        harbour.setText("");
+                        boatName.setText("");
+                        date.setText("");
+                        sendButton.setEnabled(false);
+                    }
+                }
+                return false;
+            }
+        });
 
 
-        sendButton = (Button) findViewById(R.id.button);
+
+
         remarks = (EditText) findViewById(R.id.remarks);
         imulCheck = (CheckBox) findViewById(R.id.imulCheck);
         logCheck = (CheckBox) findViewById(R.id.logCheck);
@@ -201,9 +225,7 @@ public class Departure extends Activity implements View.OnClickListener {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            harbour = (TextView) findViewById(R.id.harbourText);
-            date = (TextView) findViewById(R.id.Date);
-            boatName = (TextView) findViewById(R.id.boatTextfield);
+
             array = s.split("@");
             harbour.setText("");
             date.setText("");
@@ -232,8 +254,6 @@ public class Departure extends Activity implements View.OnClickListener {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            harbour = (TextView) findViewById(R.id.harbourText);
-            date = (TextView) findViewById(R.id.Date);
             array = s.split(" ");
             harbour.setText("");
             date.setText("");
