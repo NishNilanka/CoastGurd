@@ -1,6 +1,11 @@
 package com.example.nishangunawardena.costgurdapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -149,27 +154,40 @@ public class Arrival extends Activity implements View.OnClickListener{
                 String remarksValue = remarks.getText().toString();
                 SendArrivalData sendArrivalData = new SendArrivalData();
 
+                if(isConnectingToInternet()) {
+                    try {
+                        String safeUrl = "http://192.248.22.121/GPS_mobile/Nishan/SendArrivalData.php?" +
+                                "q=" + URLEncoder.encode(imulArrival) + "&voyageNo=" + URLEncoder.encode(voyageNo) +
+                                "&log_sheets=" + URLEncoder.encode(completeLogCheck) +
+                                "&prohibited_species=" + URLEncoder.encode(prohibitCheck) +
+                                "&whole_shark=" + URLEncoder.encode(sharkCheck) +
+                                "&remarks=" + URLEncoder.encode(remarksValue) + "";
 
-                try{
-                    String safeUrl = "http://192.248.22.121/GPS_mobile/Nishan/SendArrivalData.php?" +
-                            "q="+ URLEncoder.encode(imulArrival)+"&voyageNo="+URLEncoder.encode(voyageNo)+
-                            "&log_sheets="+URLEncoder.encode(completeLogCheck)+
-                            "&prohibited_species="+URLEncoder.encode(prohibitCheck)+
-                            "&whole_shark="+URLEncoder.encode(sharkCheck)+
-                            "&remarks="+URLEncoder.encode(remarksValue)+"";
 
+                        String result = sendArrivalData.execute(safeUrl).get();
+                        if (result.length() > 0)
+                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(getApplicationContext(), "Connection Error", Toast.LENGTH_LONG).show();
+                        getArrivalIMUL.ArrivalRegNo.clear();
+                        finish();
 
-                    String result = sendArrivalData.execute(safeUrl).get();
-                    if(result.length() > 0)
-                        Toast.makeText(getApplicationContext(), result , Toast.LENGTH_LONG).show();
-                    else
-                        Toast.makeText(getApplicationContext(), "Connection Error" , Toast.LENGTH_LONG).show();
-                    getArrivalIMUL.ArrivalRegNo.clear();
-                    finish();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Arrival.this);
+                    builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                }
-                catch(Exception e) {
-                    e.printStackTrace();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
 
                 //System.out.print(s);
@@ -196,24 +214,39 @@ public class Arrival extends Activity implements View.OnClickListener{
             String[] array;
             GetHarbourAndDate GHD = new GetHarbourAndDate();
             String s = null;
-            try {
-                s = GHD.execute("http://192.248.22.121/GPS_mobile/Nishan/getHarbourAndDate.php?q="+regNumber).get();
-                System.out.println("PHP array" + s);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            if(isConnectingToInternet()) {
+                try {
+                    s = GHD.execute("http://192.248.22.121/GPS_mobile/Nishan/getHarbourAndDate.php?q=" + regNumber).get();
+                    System.out.println("PHP array" + s);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
 
-            array = s.split("@");
-            harbour.setText("");
-            date.setText("");
-            boatName.setText("");
-            harbour.setText(array[1]);
-            date.setText(array[0]);
-            boatName.setText(array[2]);
-            voyageNo = array[3];
-            sendButton.setEnabled(true);
+                array = s.split("@");
+                harbour.setText("");
+                date.setText("");
+                boatName.setText("");
+                harbour.setText(array[1]);
+                date.setText(array[0]);
+                boatName.setText(array[2]);
+                voyageNo = array[3];
+                sendButton.setEnabled(true);
+            }else
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Arrival.this);
+                builder.setMessage("You are not connected to the internet!\nඔබ අන්තර්ජාලයට සම්බන්ද නැත!")
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
 
         }
 
@@ -249,5 +282,24 @@ public class Arrival extends Activity implements View.OnClickListener{
         public void onNothingSelected(AdapterView<?> parent) {
             sendButton.setEnabled(false);
         }
+    }
+
+    public boolean isConnectingToInternet(){
+        boolean status=false;
+        try{
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getNetworkInfo(0);
+            if (netInfo != null && netInfo.getState()==NetworkInfo.State.CONNECTED) {
+                status= true;
+            }else {
+                netInfo = cm.getNetworkInfo(1);
+                if(netInfo!=null && netInfo.getState()==NetworkInfo.State.CONNECTED)
+                    status= true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return status;
     }
 }
